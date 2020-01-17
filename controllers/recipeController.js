@@ -20,6 +20,7 @@ exports.new = function (req, res) {
     var recipe = new Recipe();
     recipe.title = req.body.title;
     recipe.url = req.body.url;
+    recipe.rating = req.body.rating;
 
     recipe.save(function (err) {
         // if (err)
@@ -47,7 +48,8 @@ Recipe.findById(req.params.recipe_id, function (err, recipe) {
         if (err)
             res.send(err);
      recipe.title = req.body.title;
-     recipe.url = req.body.url;          
+     recipe.url = req.body.url;
+     recipe.rating = req.body.rating;
 // save the contact and check for errors
         recipe.save(function (err) {
             if (err)
