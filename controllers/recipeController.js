@@ -1,4 +1,4 @@
-Recipe = require('./recipeModel');
+Recipe = require('../models/recipe');
 // Handle index actions
 exports.index = function (req, res) {
     Recipe.get(function (err, recipes) {

@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     });
 });
 
-var recipeController = require('./recipeController');
+var recipeController = require('./controllers/recipeController');
 
 router.route('/recipes')
     .get(recipeController.index)
