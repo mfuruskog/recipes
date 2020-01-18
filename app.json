@@ -1,0 +1,7 @@
+{
+    "name": "Test",
+    "description": "Test",
+    "repository": "https://github.com/mfuruskog/recipes",
+    "keywords": ["node", "express"],
+    "image": "heroku/nodejs"
+  }
