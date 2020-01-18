@@ -1,3 +1,4 @@
+require('dotenv').config()
 // Import express
 let express = require('express');
 // Import Body parser
@@ -15,7 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/your-app-name', { useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
 var db = mongoose.connection;
 
 // Added check for DB connection
@@ -25,7 +27,7 @@ else
     console.log("Db connected successfully")
 
 // Setup server port
-var port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 // Send message for default URL
 app.get('/', (req, res) => res.send('Hello World with Express'));
