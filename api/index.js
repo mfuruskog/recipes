@@ -15,14 +15,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
-var db = mongoose.connection;
+// mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
+// var db = mongoose.connection;
 
-// Added check for DB connection
-if(!db)
-    console.log("Error connecting db")
-else
-    console.log("Db connected successfully")
+// // Added check for DB connection
+// if(!db)
+//     console.log("Error connecting db")
+// else
+//     console.log("Db connected successfully")
 
 // Setup server port
 var port = process.env.PORT || 8080;
@@ -34,5 +34,5 @@ app.get('/', (req, res) => res.send('Hello World with Express'));
 app.use('/api', apiRoutes);
 // Launch app to listen to specified port
 app.listen(port, function () {
-    console.log("Running RestHub on port " + port);
+    console.log("Server listening on port " + port);
 });
