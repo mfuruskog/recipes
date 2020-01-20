@@ -7,6 +7,9 @@ let mongoose = require('mongoose');
 // Initialise the app
 let app = express();
 
+require('dotenv').config();
+
+console.log(process.env)
 // Import routes
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
@@ -16,7 +19,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 //Connect to Mongoose and set connection variable
 //mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
-mongoose.connect('mongodb://mongo:27017/recipes', { useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/recipes', { useNewUrlParser: true});
 var db = mongoose.connection;
 // Added check for DB connection
 if(!db)
