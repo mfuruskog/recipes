@@ -9,7 +9,6 @@ let app = express();
 
 require('dotenv').config();
 
-console.log(process.env)
 // Import routes
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
