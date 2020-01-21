@@ -15,5 +15,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .title {
+    font-family: 'Pacifico';
+  }
 </style>

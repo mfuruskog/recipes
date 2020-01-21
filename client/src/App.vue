@@ -22,7 +22,7 @@ html, body {
   padding: 0;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Regular';
   height: 100%;
   background-color: #09ce71;
 }
