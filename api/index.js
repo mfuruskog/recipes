@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    next();
+});
+
 //Connect to Mongoose and set connection variable
 //mongoose.connect('mongodb://localhost/recipes', { useNewUrlParser: true});
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/recipes', { useNewUrlParser: true});
