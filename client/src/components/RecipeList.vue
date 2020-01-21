@@ -6,15 +6,22 @@
       </div>
       <div class="recipe-type">Lamm</div>
       <div class="recipe-rating">
-        {{recipe.rating}}
+        <font-awesome-icon :key="n" v-for="n in recipe.rating" :icon="solidStarIcon" />
+        <font-awesome-icon :key="n" v-for="n in 5-recipe.rating" :icon="regularStarIcon" />        
       </div>
     </li>
   </ul>
 </template>
 
 <script>
+
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
+
+
+
 export default {
-  name: "RecipeList",
+  name: "RecipeList",  
   data() {
     return {
       recipes: [
@@ -27,6 +34,14 @@ export default {
         { title: "Grönsaker", url: "https://google.se", rating: 2 }
       ]
     };
+  },
+  computed: {
+    regularStarIcon () {
+      return faStarRegular
+    },
+    solidStarIcon () {
+      return faStarSolid
+    }
   }
 };
 </script>
