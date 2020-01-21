@@ -2,12 +2,11 @@
   <ul class="recipe-list">
     <li class="recipe is-flex" :key="recipe.id" v-for="recipe in recipes">
       <div class="recipe-title">
-        <a :href="recipe.url">{{recipe.title}}</a>
+        <h2 class="subtitle">{{recipe.title}}</h2>
       </div>
       <div class="recipe-type">Lamm</div>
       <div class="recipe-rating">
-        <font-awesome-icon :key="n" v-for="n in recipe.rating" :icon="solidStarIcon" />
-        <font-awesome-icon :key="n" v-for="n in 5-recipe.rating" :icon="regularStarIcon" />        
+        <font-awesome-icon :key="n" v-for="n in 5" :icon="n < recipe.rating ? solidStarIcon : regularStarIcon" />
       </div>
     </li>
   </ul>
@@ -21,7 +20,7 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 
 
 export default {
-  name: "RecipeList",  
+  name: "RecipeList",
   data() {
     return {
       recipes: [
@@ -35,12 +34,17 @@ export default {
       ]
     };
   },
-  computed: {
+  computed: {    
     regularStarIcon () {
       return faStarRegular
     },
     solidStarIcon () {
       return faStarSolid
+    }
+  },
+  methods: {
+    goToRecipe (url) {
+      window.location.href = url;
     }
   }
 };
