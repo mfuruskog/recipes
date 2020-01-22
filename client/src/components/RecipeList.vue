@@ -4,20 +4,21 @@
       <div class="recipe-title">
         <h2 class="subtitle">{{recipe.title}}</h2>
       </div>
-      <div class="recipe-type">Lamm</div>
+      <div class="recipe-type">{{recipe.type}}</div>
       <div class="recipe-rating">
-        <font-awesome-icon :key="n" v-for="n in 5" :icon="n < recipe.rating ? solidStarIcon : regularStarIcon" />
+        <font-awesome-icon
+          :key="n"
+          v-for="n in 5"
+          :icon="n < recipe.rating ? solidStarIcon : regularStarIcon"
+        />
       </div>
     </li>
   </ul>
 </template>
 
 <script>
-
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
-
-
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "RecipeList",
@@ -27,23 +28,34 @@ export default {
         {
           title: "Tomat- och palsternacksoppa",
           url: "https://google.se",
-          rating: 4
+          rating: 4,
+          type: "Vegetarisk"
         },
-        { title: "Carbonara", url: "https://google.se", rating: 5 },
-        { title: "Grönsaker", url: "https://google.se", rating: 2 }
+        {
+          title: "Carbonara",
+          url: "https://google.se",
+          rating: 5,
+          type: "Fläsk"
+        },
+        {
+          title: "Grönsaker",
+          url: "https://google.se",
+          rating: 2,
+          type: "Vegetarisk"
+        }
       ]
     };
   },
-  computed: {    
-    regularStarIcon () {
-      return faStarRegular
+  computed: {
+    regularStarIcon() {
+      return faStarRegular;
     },
-    solidStarIcon () {
-      return faStarSolid
+    solidStarIcon() {
+      return faStarSolid;
     }
   },
   methods: {
-    goToRecipe (url) {
+    goToRecipe(url) {
       window.location.href = url;
     }
   }
@@ -54,12 +66,12 @@ export default {
 .recipe-list {
   .recipe {
     background-color: white;
-    border: 2px solid black;
+    border: 2px solid #069c57;
     border-radius: 8px;
     margin-bottom: 5px;
     flex-wrap: wrap;
     padding: 10px;
-    justify-content: space-between;  
+    justify-content: space-between;
 
     .recipe-title {
       flex: 1 1 100%;

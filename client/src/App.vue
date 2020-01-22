@@ -24,6 +24,6 @@ html, body {
 #app {
   font-family: 'Regular';
   height: 100%;
-  background-color: #09ce71;
+  background-color: #91ffcc;
 }
 </style>
