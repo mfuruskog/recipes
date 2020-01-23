@@ -66,8 +66,8 @@ export default {
 .recipe-list {
   .recipe {
     background-color: white;
-    border: 2px solid #069c57;
-    border-radius: 8px;
+    border: 3px solid #E5D4C0;
+    border-radius: 20px;
     margin-bottom: 5px;
     flex-wrap: wrap;
     padding: 10px;
