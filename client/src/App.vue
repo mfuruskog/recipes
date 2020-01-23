@@ -1,17 +1,13 @@
 <template>
-  <div id="app">    
-    <home/>
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue'
 
 export default {
-  name: 'app',
-  components: {
-    Home
-  }
+  name: 'app'  
 }
 </script>
 
@@ -25,5 +21,10 @@ html, body {
   font-family: 'Regular';
   height: 100%;  
   background-image: linear-gradient(#91ffcc, #75B9BE);
+
+  a {
+    color: black;
+    font-size: 18px;
+  }
 }
 </style>

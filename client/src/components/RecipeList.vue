@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
@@ -57,7 +58,11 @@ export default {
   methods: {
     goToRecipe(url) {
       window.location.href = url;
-    }
+    },
+    addRecipe()
+  },
+  mounted() {
+    axios.get(`${process.env.VUE_APP_API_URL}/api/recipes`).then(response => this.recipes = response.data.data)
   }
 };
 </script>

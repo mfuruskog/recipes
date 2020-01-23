@@ -8,8 +8,6 @@ let mongoose = require('mongoose');
 // Initialise the app
 let app = express();
 
-require('dotenv').config();
-
 // Import routes
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
