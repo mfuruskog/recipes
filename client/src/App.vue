@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 html, body {
   height: 100%;
   margin: 0;
@@ -23,7 +23,7 @@ html, body {
 }
 #app {
   font-family: 'Regular';
-  height: 100%;
-  background-color: #91ffcc;
+  height: 100%;  
+  background-image: linear-gradient(#91ffcc, #75B9BE);
 }
 </style>
