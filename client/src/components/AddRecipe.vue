@@ -8,9 +8,39 @@
       </div>
     </nav>
     <div class="field">
-      <label class="label">Name</label>
+      <label class="label">Titel</label>
       <div class="control">
-        <input class="input" type="text" placeholder="e.g Alex Smith" />
+        <input class="input" type="text" placeholder="T.ex. Pasta Carbonara" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">URL</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="http://www.x.y" />
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="question" />
+          1
+        </label>
+        <label class="radio">
+          <input type="radio" name="question" />
+          2
+        </label>
+        <label class="radio">
+          <input type="radio" name="question" />
+          3
+        </label>
+        <label class="radio">
+          <input type="radio" name="question" />
+          4
+        </label>
+        <label class="radio">
+          <input type="radio" name="question" />
+          5
+        </label>
       </div>
     </div>
   </section>
