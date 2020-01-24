@@ -2,9 +2,9 @@
   <ul class="recipe-list">
     <li class="recipe is-flex" :key="recipe.id" v-for="recipe in recipes">
       <div class="recipe-title">
-        <h2 class="subtitle">{{recipe.title}}</h2>
+        <h2 class="subtitle">{{ recipe.title }}</h2>
       </div>
-      <div class="recipe-type">{{recipe.type}}</div>
+      <div class="recipe-type">{{ recipe.type }}</div>
       <div class="recipe-rating">
         <font-awesome-icon
           :key="n"
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,26 +25,7 @@ export default {
   name: "RecipeList",
   data() {
     return {
-      recipes: [
-        {
-          title: "Tomat- och palsternacksoppa",
-          url: "https://google.se",
-          rating: 4,
-          type: "Vegetarisk"
-        },
-        {
-          title: "Carbonara",
-          url: "https://google.se",
-          rating: 5,
-          type: "Fläsk"
-        },
-        {
-          title: "Grönsaker",
-          url: "https://google.se",
-          rating: 2,
-          type: "Vegetarisk"
-        }
-      ]
+      recipes: []
     };
   },
   computed: {
@@ -58,6 +40,11 @@ export default {
     goToRecipe(url) {
       window.location.href = url;
     }
+  },
+  mounted() {
+    axios
+      .get(`${process.env.VUE_APP_API_URL}/recipes`)
+      .then(response => (this.recipes = response.data.data));
   }
 };
 </script>
@@ -66,7 +53,7 @@ export default {
 .recipe-list {
   .recipe {
     background-color: white;
-    border: 3px solid #E5D4C0;
+    border: 3px solid #e5d4c0;
     border-radius: 20px;
     margin-bottom: 5px;
     flex-wrap: wrap;
