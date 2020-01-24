@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, POST, PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
     next();
 });
 

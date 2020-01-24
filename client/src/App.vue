@@ -18,7 +18,8 @@ html, body {
   padding: 0;
 }
 #app {
-  font-family: 'Regular';
+  font-family: 'Helvetica';
+  color: #3e4540;
   height: 100%;  
   background-image: linear-gradient(#91ffcc, #75B9BE);
 
