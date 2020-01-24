@@ -3,6 +3,7 @@ import router from './router'
 import App from './App.vue'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import './registerServiceWorker'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
