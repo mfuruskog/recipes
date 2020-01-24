@@ -37,18 +37,22 @@
       <div class="field">
         <label class="label">Typ</label>
         <div class="control">
-          <label v-for="(type, index) in RECIPE_TYPES" :key="index" class="radio">
+          <label
+            v-for="(type, index) in RECIPE_TYPES"
+            :key="index"
+            class="radio"
+          >
             <input type="radio" :value="type.type" v-model="recipe.type" />
-            {{type.name}}
-          </label>          
+            {{ type.name }}
+          </label>
         </div>
       </div>
       <div class="field">
         <label class="label">Betyg</label>
         <div class="control">
-          <label v-for="n in MAX_RATING" :key="n" class="radio">
+          <label class="rating" v-for="n in MAX_RATING" :key="n" :value="n">
             <input type="radio" :value="n" v-model="recipe.rating" />
-            {{ n }}
+            <font-awesome-icon :icon="getStarIcon(n)" />
           </label>
         </div>
       </div>
@@ -58,11 +62,12 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import { MAX_RATING, RECIPE_TYPES } from '../common/constants'
+import axios from "axios";
+import { faStar as faStarSolid, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
+import { MAX_RATING, RECIPE_TYPES } from "../common/constants";
 
-export default {  
+export default {
   name: "AddRecipe",
   data() {
     return {
@@ -79,14 +84,31 @@ export default {
   computed: {
     angleLeft() {
       return faAngleLeft;
-    }
+    }    
   },
   methods: {
     submitRecipe() {
-      axios.post(`${process.env.VUE_APP_API_URL}/recipes`, this.recipe).then(() => this.$router.push({ name: 'home'}))
+      axios
+        .post(`${process.env.VUE_APP_API_URL}/recipes`, this.recipe)
+        .then(() => this.$router.push({ name: "home" }));
+    },
+    getStarIcon(index) {
+      if (this.recipe.rating === null) return faStarRegular;
+      else if (index <= this.recipe.rating) return faStarSolid;
+      return faStarRegular;
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.rating {
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+}
+</style>

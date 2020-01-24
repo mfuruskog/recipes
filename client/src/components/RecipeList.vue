@@ -7,6 +7,7 @@
       <div class="recipe-type">{{ recipe.type }}</div>
       <div class="recipe-rating">
         <font-awesome-icon
+          :class="n < recipe.rating ? 'solid-star' : 'regular-star'"
           :key="n"
           v-for="n in 5"
           :icon="n < recipe.rating ? solidStarIcon : regularStarIcon"
@@ -62,6 +63,16 @@ export default {
 
     .recipe-title {
       flex: 1 1 100%;
+    }
+    .regular-star {
+      color: black;
+      .fa-star g g path {
+        stroke: red;
+        stroke-width: 10;
+      }
+    }
+    .solid-star {
+      color: #D4AF37;
     }
   }
 }
