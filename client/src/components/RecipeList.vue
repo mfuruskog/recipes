@@ -7,10 +7,10 @@
       <div class="recipe-type">{{ recipe.type }}</div>
       <div class="recipe-rating">
         <font-awesome-icon
-          :class="n < recipe.rating ? 'solid-star' : 'regular-star'"
+          :class="n <= recipe.rating ? 'solid-star' : 'regular-star'"
           :key="n"
           v-for="n in 5"
-          :icon="n < recipe.rating ? solidStarIcon : regularStarIcon"
+          :icon="n <= recipe.rating ? solidStarIcon : regularStarIcon"
         />
       </div>
     </li>
