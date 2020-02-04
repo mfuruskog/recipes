@@ -1,6 +1,6 @@
 <template>
 <section class="section">
-  <h1 class="title is-2 has-text-centered">Favvorecepten</h1>
+  <h1 class="title is-2 has-text-centered">Receptlådan</h1>
   <add-recipe-button></add-recipe-button>
   <recipe-list></recipe-list>
 </section>

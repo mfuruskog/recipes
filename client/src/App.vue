@@ -13,6 +13,7 @@ export default {
 
 <style lang="scss">
 html, body {
+  background-color: #FFF7E4;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -21,7 +22,7 @@ html, body {
   font-family: 'Helvetica';
   color: #3e4540;
   height: 100%;  
-  background-image: linear-gradient(#91ffcc, #75B9BE);
+  background-color: #FFF7E4;
 
   a {
     color: black;

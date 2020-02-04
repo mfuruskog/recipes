@@ -12,7 +12,7 @@ export default {
   button {
     border: 0;
     margin-bottom: 10px;
-    background-color: #DB5461;
+    background-color: #2A5B35;
     color: white;
     font-weight: bold;    
   }

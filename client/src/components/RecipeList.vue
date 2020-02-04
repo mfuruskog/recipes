@@ -52,17 +52,18 @@ export default {
 
 <style lang="scss" scoped>
 .recipe-list {
+  //TODO Temporary solution
+  margin: 0 -1.5rem;
+
   .recipe {
     background-color: white;
-    border: 3px solid #e5d4c0;
-    border-radius: 20px;
     margin-bottom: 5px;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 1.2rem 1rem;
     justify-content: space-between;
 
     .recipe-title {
-      flex: 1 1 100%;
+      flex: 1 1 100%;      
     }
     .regular-star {
       color: black;
