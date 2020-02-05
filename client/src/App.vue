@@ -13,16 +13,11 @@ export default {
 
 <style lang="scss">
 html, body {
-  background-color: #FFF7E4;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  background-color: #FFF7E4 !important;
 }
 #app {
   font-family: 'Helvetica';
-  color: #3e4540;
-  height: 100%;  
-  background-color: #FFF7E4;
+  color: #3e4540;    
 
   a {
     color: black;
