@@ -19,6 +19,7 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
     var recipe = new Recipe();
     recipe.title = req.body.title;
+    recipe.description = req.body.description;
     recipe.url = req.body.url;
     recipe.rating = req.body.rating;
     recipe.type = req.body.type;
@@ -49,6 +50,7 @@ Recipe.findById(req.params.recipe_id, function (err, recipe) {
         if (err)
             res.send(err);
      recipe.title = req.body.title;
+     recipe.description = req.body.description;
      recipe.url = req.body.url;
      recipe.rating = req.body.rating;
      recipe.type = req.body.type;

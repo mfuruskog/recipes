@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">URL</label>
+        <label class="label">Länk till recept</label>
         <div class="control">
           <input
             class="input"
@@ -32,6 +32,15 @@
             placeholder="http://www.x.y"
             v-model="recipe.url"
           />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Betyg</label>
+        <div class="control">
+          <label class="rating" v-for="n in MAX_RATING" :key="n" :value="n">
+            <input type="radio" :value="n" v-model="recipe.rating" />
+            <font-awesome-icon :icon="getStarIcon(n)" />
+          </label>
         </div>
       </div>
       <div class="field">
@@ -48,14 +57,15 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Betyg</label>
+        <label class="label">Beskrivning eller kommentarer</label>
         <div class="control">
-          <label class="rating" v-for="n in MAX_RATING" :key="n" :value="n">
-            <input type="radio" :value="n" v-model="recipe.rating" />
-            <font-awesome-icon :icon="getStarIcon(n)" />
-          </label>
+          <textarea 
+            class="textarea" 
+            placeholder="Gärna en kort beskrivning av receptet!" 
+            v-model="recipe.description"/>
         </div>
       </div>
+      
       <button class="button is-link" type="submit">Spara</button>
     </form>
   </section>
@@ -77,7 +87,8 @@ export default {
         title: null,
         url: null,
         type: null,
-        rating: null
+        rating: null,
+        description: null
       }
     };
   },

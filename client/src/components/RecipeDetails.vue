@@ -19,8 +19,7 @@
           <rating class="rating" :rating="recipe.rating" />
           {{ recipeType }}
           <div class="description">
-            God, enkel mat. Kan absolut kryddas lite extra och kanske ta lite
-            mindre av tomatpurén.
+            {{ recipe.description }}
           </div>
           <div>
             <a :href="recipe.url">{{ recipe.url }}</a>
