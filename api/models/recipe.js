@@ -17,6 +17,10 @@ var recipeSchema = mongoose.Schema({
         min: 0,
         max: 5
     },
+    type: {
+        type: String,
+        required: true
+        },
     create_date: {
         type: Date,
         default: Date.now

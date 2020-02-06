@@ -4,12 +4,12 @@
       <div class="recipe-title">
         <h2 class="subtitle">{{ recipe.title }}</h2>
       </div>
-      <div class="recipe-type">{{ recipe.type }}</div>
+      <div class="recipe-type">{{ translateRecipeType(recipe.type) }}</div>
       <div class="recipe-rating">
         <font-awesome-icon
           :class="n <= recipe.rating ? 'solid-star' : 'regular-star'"
           :key="n"
-          v-for="n in 5"
+          v-for="n in MAX_RATING"
           :icon="n <= recipe.rating ? solidStarIcon : regularStarIcon"
         />
       </div>
@@ -21,12 +21,15 @@
 import axios from "axios";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import { MAX_RATING, RECIPE_TYPES } from "../common/constants";
 
 export default {
   name: "RecipeList",
   data() {
     return {
-      recipes: []
+      recipes: [],
+      MAX_RATING: MAX_RATING,
+      RECIPE_TYPES: RECIPE_TYPES
     };
   },
   computed: {
@@ -40,6 +43,11 @@ export default {
   methods: {
     goToRecipe(url) {
       window.location.href = url;
+    },
+    //TODO refactor this. Perhaps recipe as its own component and this as computed property?
+    translateRecipeType(type) {
+      let recipeType = RECIPE_TYPES.find(x => x.type === type);
+      return recipeType ? recipeType.name : '';
     }
   },
   mounted() {
@@ -63,8 +71,16 @@ export default {
     justify-content: space-between;
 
     .recipe-title {
+      h2 {
+        font-size: 1rem;
+        }
       flex: 1 1 100%;      
     }
+
+    .recipe-type {
+      font-size: 0.9rem;
+    }
+
     .regular-star {
       color: black;
       .fa-star g g path {
