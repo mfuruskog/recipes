@@ -6,12 +6,7 @@
       </div>
       <div class="recipe-type">{{ translateRecipeType(recipe.type) }}</div>
       <div class="recipe-rating">
-        <font-awesome-icon
-          :class="n <= recipe.rating ? 'solid-star' : 'regular-star'"
-          :key="n"
-          v-for="n in MAX_RATING"
-          :icon="n <= recipe.rating ? solidStarIcon : regularStarIcon"
-        />
+        <rating :rating="recipe.rating" />
       </div>
     </li>
   </ul>
@@ -19,26 +14,20 @@
 
 <script>
 import axios from "axios";
-import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
-import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 import { MAX_RATING, RECIPE_TYPES } from "../common/constants";
+import Rating from "./Rating"
 
 export default {
   name: "RecipeList",
+  components: {
+    Rating
+  },
   data() {
     return {
       recipes: [],
       MAX_RATING: MAX_RATING,
       RECIPE_TYPES: RECIPE_TYPES
     };
-  },
-  computed: {
-    regularStarIcon() {
-      return faStarRegular;
-    },
-    solidStarIcon() {
-      return faStarSolid;
-    }
   },
   methods: {
     goToRecipeDetails(id) {
@@ -82,17 +71,6 @@ export default {
 
     .recipe-type {
       font-size: 0.9rem;
-    }
-
-    .regular-star {
-      color: black;
-      .fa-star g g path {
-        stroke: red;
-        stroke-width: 10;
-      }
-    }
-    .solid-star {
-      color: #D4AF37;
     }
   }
 }
