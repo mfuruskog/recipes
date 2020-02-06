@@ -1,25 +1,25 @@
 <template>
-<section class="section">
-  <h1 class="title is-2 has-text-centered">Receptlådan</h1>
-  <add-recipe-button></add-recipe-button>
-  <recipe-list></recipe-list>
-</section>
+  <section class="section">
+    <h1 class="title is-2 has-text-centered">Receptlådan</h1>
+    <add-recipe-button></add-recipe-button>
+    <recipe-list></recipe-list>
+  </section>
 </template>
 
 <script>
-import RecipeList from './RecipeList.vue'
-import AddRecipeButton from './AddRecipeButton.vue'
+import RecipeList from "./RecipeList.vue";
+import AddRecipeButton from "./AddRecipeButton.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     RecipeList,
     AddRecipeButton
   }
-}
+};
 </script>
 
-<style lang="scss" scoped>  
-  .title {
-    font-family: 'Pacifico';
-  }
+<style lang="scss" scoped>
+.title {
+  font-family: "Pacifico";
+}
 </style>

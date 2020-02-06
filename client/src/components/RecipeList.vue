@@ -1,6 +1,6 @@
 <template>
   <ul class="recipe-list">
-    <li class="recipe is-flex" :key="recipe.id" v-for="recipe in recipes">
+    <li class="recipe is-flex" :key="recipe.id" v-for="recipe in recipes" @click="goToRecipeDetails(recipe._id)">
       <div class="recipe-title">
         <h2 class="subtitle">{{ recipe.title }}</h2>
       </div>
@@ -41,6 +41,9 @@ export default {
     }
   },
   methods: {
+    goToRecipeDetails(id) {
+      this.$router.push({ name: "recipe-details", params: { id } })
+    },
     goToRecipe(url) {
       window.location.href = url;
     },
