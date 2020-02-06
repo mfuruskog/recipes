@@ -16,8 +16,10 @@
         </h1>
         <hr />
         <div class="details">
-          <rating class="rating" :rating="recipe.rating" />
-          {{ recipeType }}
+          <div class="details--top">
+            <rating class="rating" :rating="recipe.rating" />
+            {{ recipeType }}
+          </div>
           <div class="description">
             {{ recipe.description }}
           </div>
@@ -76,16 +78,21 @@ export default {
   .details {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    .rating {
-      font-size: 1.5rem;
+    .details--top {
+      display: flex;
+      flex-grow: 1;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      .rating {
+        font-size: 1.5rem;
+      }
     }
     .description {
       margin: 1.5rem 0;
     }
   }
-
   hr {
     background-color: lightgray;
     margin: 0.9rem 0;
