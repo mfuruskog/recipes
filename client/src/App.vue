@@ -23,5 +23,9 @@ html, body {
     color: black;
     font-size: 18px;
   }
+
+  section {
+    padding-top: 1.2rem;
+  }
 }
 </style>
