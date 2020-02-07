@@ -154,7 +154,7 @@ export default {
     flex-wrap: wrap;
     .details--top {
       display: flex;
-      flex-grow: 1;
+      flex: 1 1 100%;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
