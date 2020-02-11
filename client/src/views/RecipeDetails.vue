@@ -62,7 +62,7 @@ export default {
       return faEdit;
     },
     recipeType() {
-      let recipeType = RECIPE_TYPES.find(x => x.type);
+      let recipeType = RECIPE_TYPES.find(x => x.type == this.recipe.type);
       return recipeType ? recipeType.name : "";
     }
   },
