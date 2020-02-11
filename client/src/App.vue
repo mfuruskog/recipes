@@ -17,15 +17,11 @@ html, body {
 }
 #app {
   font-family: 'Helvetica';
-  color: #3e4540;    
+  color: #3e4540;
 
   a {
     color: black;
     font-size: 18px;
-  }
-
-  section {
-    padding-top: 1.2rem;
   }
 }
 </style>
