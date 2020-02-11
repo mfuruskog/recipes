@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import RecipeList from "./RecipeList.vue";
-import AddRecipeButton from "./AddRecipeButton.vue";
+import RecipeList from "../components/RecipeList.vue";
+import AddRecipeButton from "../components/AddRecipeButton.vue";
 export default {
   name: "Home",
   components: {

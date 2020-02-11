@@ -100,7 +100,7 @@
 import axios from "axios";
 import { faAngleLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RECIPE_TYPES } from "../common/constants";
-import Rating from "./Rating";
+import Rating from "../components/Rating";
 
 export default {
   name: "RecipeDetails",
