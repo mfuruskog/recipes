@@ -20,7 +20,7 @@
           <rating class="rating" :rating="recipe.rating" />
           {{ recipeType }}
         </div>
-        <div class="description">{{ recipe.description }}</div>
+        <div class="details--description">{{ recipe.description }}</div>
         <div>
           <a :href="recipe.url">{{ recipe.url }}</a>
         </div>
@@ -111,7 +111,8 @@ export default {
         font-size: 1.5rem;
       }
     }
-    .description {
+    .details--description {
+      flex: 1 1 100%;
       margin: 1.5rem 0;
     }
   }
