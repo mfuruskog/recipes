@@ -35,7 +35,10 @@
           <div class="control" :class="classes">
             <label class="rating" v-for="n in MAX_RATING" :key="n" :value="n">
               <input type="radio" :value="n" v-model="recipe.rating" />
-              <font-awesome-icon :icon="getStarIcon(n)" />
+              <font-awesome-icon
+                :icon="n <= recipe.rating ? starSolid : starRegular"
+                :class="n <= recipe.rating ? 'solid-star' : 'regular-star'"
+              />
             </label>
             <span class="validation-message">{{ errors[0] }}</span>
           </div>
@@ -48,7 +51,8 @@
             <label
               v-for="(type, index) in RECIPE_TYPES"
               :key="index"
-              class="radio">
+              class="radio"
+            >
               <input type="radio" :value="type.type" v-model="recipe.type" />
               {{ type.name }}
             </label>
@@ -109,6 +113,14 @@ export default {
       required: true
     }
   },
+  computed: {
+    starRegular() {
+      return faStarRegular;
+    },
+    starSolid() {
+      return faStarSolid;
+    }
+  },
   data() {
     return {
       MAX_RATING: MAX_RATING,
@@ -117,11 +129,6 @@ export default {
     };
   },
   methods: {
-    getStarIcon(index) {
-      if (this.recipe.rating === null) return faStarRegular;
-      else if (index <= this.recipe.rating) return faStarSolid;
-      return faStarRegular;
-    },
     submitRecipe() {
       if (this.initialRecipe._id != null) {
         axios
@@ -154,12 +161,19 @@ export default {
   }
 }
 .rating {
+  font-size: 1.3rem;
   input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
+  }
+  .regular-star {
+    color: black;
+  }
+  .solid-star {
+    color: #d4af37;
   }
 }
 </style>
