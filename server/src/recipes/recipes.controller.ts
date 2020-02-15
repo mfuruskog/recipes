@@ -1,18 +1,22 @@
 import { Controller, Get, Post, Param, Body, Put, Delete } from '@nestjs/common'
-import { CreateRecipeDto } from './create-recipe.dto'
-import { UpdateRecipeDto } from './update-recipe.dto'
+import { CreateRecipeDto } from './dto/create-recipe.dto'
+import { UpdateRecipeDto } from './dto/update-recipe.dto'
+import { RecipesService } from './recipes.service'
+import { Recipe } from './interfaces/recipe.interface';
 
 @Controller('recipes')
 export class RecipesController {
+    constructor(private readonly recipesService: RecipesService) {}
 
     @Post()
     async create(@Body() createRecipeDto: CreateRecipeDto): Promise<string> {
-        return 'Added!'
+        this.recipesService.create(createRecipeDto);
+        return 'Created!';
     }
 
     @Get()
-    async findAll(): Promise<string> {
-        return 'This is it!'
+    async findAll(): Promise<Recipe[]> {
+        return this.recipesService.findAll();
     }
 
     @Get(':id')
