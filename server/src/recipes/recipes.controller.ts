@@ -20,13 +20,13 @@ export class RecipesController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string): Promise<string> {        
-        return `Fetched ${id}!`
+    async findOne(@Param('id') id: string): Promise<Recipe> {        
+        return this.recipesService.findOne(id);
     }
 
     @Put(':id')
-    async update(@Param('id') id: string, @Body() updateRecipeDto: UpdateRecipeDto): Promise<string> {
-        return 'Updated'
+    async update(@Param('id') id: string, @Body() updateRecipeDto: UpdateRecipeDto): Promise<Recipe> {
+        return this.recipesService.update(id, updateRecipeDto);
     }
     
     @Delete(':id')

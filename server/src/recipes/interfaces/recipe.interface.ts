@@ -4,4 +4,5 @@ export interface Recipe {
     url: string;
     rating: number;
     type: string;
+    update_date: Date;
 }

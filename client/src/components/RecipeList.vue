@@ -40,12 +40,14 @@ export default {
     translateRecipeType(type) {
       let recipeType = RECIPE_TYPES.find(x => x.type === type);
       return recipeType ? recipeType.name : '';
+    },
+    async getRecipes() {
+      let result = await axios.get(`${process.env.VUE_APP_API_URL}/recipes`);
+      this.recipes = result.data;
     }
   },
   mounted() {
-    axios
-      .get(`${process.env.VUE_APP_API_URL}/recipes`)
-      .then(response => (this.recipes = response.data.data));
+    this.getRecipes();
   }
 };
 </script>

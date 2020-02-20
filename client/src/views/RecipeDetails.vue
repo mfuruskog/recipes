@@ -67,19 +67,19 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-       axios
-      .get(`${process.env.VUE_APP_API_URL}/recipes/${this.id}`)
-      .then(response => {
-        this.recipe = response.data.data;
-        this.isEditing = false;
-        });
+    async getRecipe() {
+      var res = await axios
+        .get(`${process.env.VUE_APP_API_URL}/recipes/${this.id}`);
+        
+      this.recipe = res.data;
+    },
+    async onSubmit() {
+      await this.getRecipe();
+      this.isEditing = false;      
     }
   },
   mounted() {
-    axios
-      .get(`${process.env.VUE_APP_API_URL}/recipes/${this.id}`)
-      .then(response => (this.recipe = response.data.data));
+    this.getRecipe();
   }
 };
 </script>
