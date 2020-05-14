@@ -31,7 +31,7 @@ export class RecipesService {
             recipe.description = updateRecipeDto.description;
             recipe.rating = updateRecipeDto.rating;
             recipe.type = updateRecipeDto.type;
-            recipe.update_date = Date.now;
+            recipe.update_date = new Date().toISOString();
         }
         await recipe.save();
 
