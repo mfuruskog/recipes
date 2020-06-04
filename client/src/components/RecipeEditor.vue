@@ -129,19 +129,19 @@ export default {
     };
   },
   methods: {
-    submitRecipe() {
-      if (this.initialRecipe._id != null) {
-        axios
+    async submitRecipe() {
+      if (this.initialRecipe._id != null) {        
+        await axios
           .put(
             `${process.env.VUE_APP_API_URL}/recipes/${this.initialRecipe._id}`,
             this.recipe
-          )
-          .then(() => this.callback());
+          );
+          
       } else {
-        axios
-          .post(`${process.env.VUE_APP_API_URL}/recipes`, this.recipe)
-          .then(() => this.callback());
+        await axios
+          .post(`${process.env.VUE_APP_API_URL}/recipes`, this.recipe);          
       }
+      this.callback();
     }
   }
 };

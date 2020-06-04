@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
-// Setup schema
-var recipeSchema = mongoose.Schema({
+import * as mongoose from "mongoose";
+
+export const RecipeSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -29,9 +29,4 @@ var recipeSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
-
-var Recipe = module.exports = mongoose.model('recipe', recipeSchema);
-module.exports.get = function (callback, limit) {
-    Recipe.find(callback).limit(limit);
-}
+})
