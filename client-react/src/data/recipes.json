@@ -12,11 +12,11 @@
   },
   {
     "_id": "5ebd1d5240d500bf2b5416cd",
-    "title": "Kött",
-    "url": "Qwe",
+    "title": "Köttfärssås med spagetti och halstrad sparris",
+    "url": "https://google.se",
     "type": "fish",
     "rating": 3,
-    "description": "Aha",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer venenatis odio est, a pharetra diam pulvinar quis. Duis aliquam augue quis tristique egestas. Phasellus ac bibendum justo.",
     "create_date": "2020-05-14T10:28:34.706Z",
     "update_date": "2020-05-14T10:28:34.706Z",
     "__v": 0
