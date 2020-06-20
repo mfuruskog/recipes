@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { MAX_RATING, RECIPE_TYPES } from '../constants';
+import { Recipe } from '../types';
 
 const Form = tw.form`flex flex-col`;
 const Label = tw.label`flex flex-wrap mb-4`;
@@ -27,6 +28,7 @@ const TypeInput = tw.input`absolute h-0 w-0 cursor-pointer`;
 const DescriptionInput = tw.textarea`w-full resize-none h-32 p-1`;
 const Submit = tw.button`bg-red-300 p-1 rounded-md font-bold`;
 const ValidationMessage = tw.span`text-sm font-light text-red-600`;
+
 type FormData = {
   title: string;
   url: string;
@@ -34,8 +36,20 @@ type FormData = {
   type: string;
   description: string;
 };
-const RecipeForm: React.FC = () => {
-  const { handleSubmit, register, errors, watch } = useForm<FormData>();
+
+interface RecipeFormProps {
+  recipe?: Recipe;
+}
+const RecipeForm: React.FC<RecipeFormProps> = ({ recipe }) => {
+  const { handleSubmit, register, errors, watch } = useForm<FormData>({
+    defaultValues: {
+      title: recipe?.title,
+      url: recipe?.url,
+      rating: recipe?.rating,
+      type: recipe?.type,
+      description: recipe?.description,
+    },
+  });
   const onSubmit = (values: FormData) => console.log(values);
   const watchRating = watch('rating');
   const watchType = watch('type');

@@ -14,6 +14,7 @@ import {
 import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
 import recipesJson from '../data/recipes.json';
+import RecipeForm from '../components/RecipeForm';
 
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
@@ -26,24 +27,41 @@ const RecipeLink = tw.a`text-green-600`;
 const RecipeDetails: React.FC = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState<Recipe>();
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     setRecipe(recipesJson.find((r) => r._id === id) as Recipe);
   }, [id]);
 
-  if (recipe)
-    return (
-      <div>
-        <Header>
+  const HeaderContent = () => {
+    if (!isEditing)
+      return (
+        <React.Fragment>
           <Link tw="flex" to={`/`}>
             <FontAwesomeIcon icon={faAngleLeft} tw="text-2xl mr-1" />
             Bakåt
           </Link>
-          <Link tw="flex" to={`/`}>
-            <FontAwesomeIcon icon={faEdit} />
-          </Link>
-        </Header>
-        <Main>
+          <FontAwesomeIcon icon={faEdit} onClick={() => setIsEditing(true)} />
+        </React.Fragment>
+      );
+    return (
+      <React.Fragment>
+        <button tw="flex" onClick={() => setIsEditing(false)}>
+          Avbryt
+        </button>
+
+        <button tw="flex" onClick={() => setIsEditing(false)}>
+          Spara
+        </button>
+      </React.Fragment>
+    );
+  };
+
+  const MainContent = () => {
+    if (!recipe) return <div></div>;
+    if (recipe && !isEditing)
+      return (
+        <React.Fragment>
           <RecipeTitle>{recipe.title}</RecipeTitle>
           <Rating rating={recipe.rating}></Rating>
           <RecipeType>{recipe.type}</RecipeType>
@@ -51,11 +69,21 @@ const RecipeDetails: React.FC = () => {
           <RecipeLink href={recipe.url}>
             Gå till recept <FontAwesomeIcon icon={faExternalLinkAlt} />
           </RecipeLink>
-        </Main>
-      </div>
-    );
+        </React.Fragment>
+      );
+    return <RecipeForm recipe={recipe}></RecipeForm>;
+  };
 
-  return <div></div>;
+  return (
+    <React.Fragment>
+      <Header>
+        <HeaderContent></HeaderContent>
+      </Header>
+      <Main>
+        <MainContent></MainContent>
+      </Main>
+    </React.Fragment>
+  );
 };
 
 export default RecipeDetails;
