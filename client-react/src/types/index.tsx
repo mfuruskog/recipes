@@ -6,3 +6,9 @@ export interface Recipe {
   rating: number;
   type: string;
 }
+
+export interface RecipeType {
+  type: string;
+  name: string;
+  emoji: string;
+}
