@@ -58,7 +58,7 @@ const RecipeDetails: React.FC = () => {
   };
 
   const MainContent = () => {
-    if (!recipe) return <div></div>;
+    if (!recipe) return null;
     if (recipe && !isEditing)
       return (
         <React.Fragment>

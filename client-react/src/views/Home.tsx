@@ -2,27 +2,26 @@
 
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useContext, useEffect } from 'react';
 
-import { StoreState } from '../reducers';
 import { getRecipes } from '../actions';
 import Header from '../components/Header';
 import RecipeItem from '../components/RecipeItem';
+import { RecipeContext } from '../contexts/recipe-context';
 
 const Main = tw.main`h-full sm:w-full md:w-1/2`;
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  dispatch(getRecipes());
-
-  const recipes = useSelector((state: StoreState) => state.recipes).data;
+  const { state, dispatch } = useContext(RecipeContext);
+  useEffect(() => {
+    dispatch({ type: 'GET_RECIPES' });
+  }, [dispatch]);
 
   return (
     <div>
       <Header></Header>
       <Main>
-        {recipes?.map((recipe, index) => (
+        {state.recipes.map((recipe, index) => (
           <RecipeItem recipe={recipe} key={index}></RecipeItem>
         ))}
       </Main>

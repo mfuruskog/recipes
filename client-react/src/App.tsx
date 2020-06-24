@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import { RecipeProvider } from './contexts/recipe-context';
 import Home from './views/Home';
 import RecipeDetails from './views/RecipeDetails';
 import AddRecipe from './views/AddRecipe';
 
 function App() {
   return (
-    <div>
+    <RecipeProvider>
       <Router>
         <div className="route-container">
           <Switch>
@@ -18,7 +18,7 @@ function App() {
           </Switch>
         </div>
       </Router>
-    </div>
+    </RecipeProvider>
   );
 }
 
