@@ -2,7 +2,9 @@
 
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,8 +15,9 @@ import {
 
 import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
-import recipesJson from '../data/recipes.json';
-import RecipeForm from '../components/RecipeForm';
+import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
+import { RecipeContext } from '../contexts/recipe-context';
+import { updateRecipe } from '../actions';
 
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
@@ -26,12 +29,14 @@ const RecipeLink = tw.a`text-green-600`;
 
 const RecipeDetails: React.FC = () => {
   const { id } = useParams();
+  const history = useHistory();
+  const { state, dispatch } = useContext(RecipeContext);
   const [recipe, setRecipe] = useState<Recipe>();
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    setRecipe(recipesJson.find((r) => r._id === id) as Recipe);
-  }, [id]);
+    setRecipe(state.recipes.data.find((r) => r._id === id) as Recipe);
+  }, [state, id]);
 
   const HeaderContent = () => {
     if (!isEditing)
@@ -74,7 +79,14 @@ const RecipeDetails: React.FC = () => {
     return (
       <RecipeForm
         recipe={recipe}
-        callback={() => console.log('oj')}
+        callback={(values: RecipeFormData, _id: string) => {
+          axios
+            .put(`http://localhost:3000/recipes/${_id}`, values)
+            .then((response) => {
+              dispatch(updateRecipe(response.data));
+              history.push('/');
+            });
+        }}
       ></RecipeForm>
     );
   };

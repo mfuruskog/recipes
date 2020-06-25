@@ -2,16 +2,13 @@
 
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { MAX_RATING, RECIPE_TYPES } from '../constants';
 import { Recipe } from '../types';
-import { RecipeContext } from '../contexts/recipe-context';
-import { addRecipe } from '../actions';
 
 const Form = tw.form`flex flex-col`;
 const Label = tw.label`flex flex-wrap mb-4`;
@@ -32,7 +29,7 @@ const DescriptionInput = tw.textarea`w-full resize-none h-32 p-1`;
 const Submit = tw.button`bg-red-300 p-1 rounded-md font-bold`;
 const ValidationMessage = tw.span`text-sm font-light text-red-600`;
 
-type FormData = {
+export type RecipeFormData = {
   title: string;
   url: string;
   rating: number;
@@ -45,8 +42,7 @@ interface RecipeFormProps {
   callback: Function;
 }
 const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
-  const { dispatch } = useContext(RecipeContext);
-  const { handleSubmit, register, errors, watch } = useForm<FormData>({
+  const { handleSubmit, register, errors, watch } = useForm<RecipeFormData>({
     defaultValues: {
       title: recipe?.title,
       url: recipe?.url,
@@ -55,11 +51,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       description: recipe?.description,
     },
   });
-  const onSubmit = (values: FormData) => {
-    axios.post(`http://localhost:3000/recipes`, values).then((response) => {
-      dispatch(addRecipe(response.data));
-      callback();
-    });
+  const onSubmit = (values: RecipeFormData) => {
+    callback(values, recipe?._id);
   };
   const watchRating = watch('rating');
   const watchType = watch('type');

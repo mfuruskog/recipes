@@ -1,6 +1,6 @@
 import { Recipe } from '../types';
 
-import { SET_RECIPES, ADD_RECIPE } from '../constants';
+import { SET_RECIPES, ADD_RECIPE, UPDATE_RECIPE } from '../constants';
 import { ActionType } from '../actions';
 
 export const initialState = {
@@ -27,6 +27,15 @@ export default function reducer(
         ...state,
         recipes: {
           data: [...state.recipes.data, action.payload],
+        },
+      };
+    case UPDATE_RECIPE:
+      return {
+        ...state,
+        recipes: {
+          data: state.recipes.data.map((recipe) =>
+            recipe._id === action.payload._id ? action.payload : recipe
+          ),
         },
       };
     default:
