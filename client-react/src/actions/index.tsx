@@ -1,11 +1,10 @@
-import { GET_RECIPES } from '../constants';
+import { SET_RECIPES } from '../constants';
+import { Recipe } from '../types';
 
-import recipesJson from '../data/recipes.json';
-
-export function getRecipes() {
+export function setRecipes(data: Recipe[]) {
   return {
-    type: GET_RECIPES,
-    payload: recipesJson,
+    type: SET_RECIPES,
+    payload: data,
   };
 }
-export type ActionTypes = ReturnType<typeof getRecipes>;
+export type ActionType = ReturnType<typeof setRecipes>;

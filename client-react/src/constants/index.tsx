@@ -1,7 +1,7 @@
 import { RecipeType } from '../types';
 
-export const GET_RECIPES = 'GET_RECIPES';
-export type GET_RECIPES = typeof GET_RECIPES;
+export const SET_RECIPES = 'SET_RECIPES';
+export type SET_RECIPES = typeof SET_RECIPES;
 
 export const MAX_RATING: number = 5;
 
