@@ -1,6 +1,6 @@
 import { Recipe } from '../types';
 
-import { SET_RECIPES } from '../constants';
+import { SET_RECIPES, ADD_RECIPE } from '../constants';
 import { ActionType } from '../actions';
 
 export const initialState = {
@@ -20,6 +20,13 @@ export default function reducer(
         ...state,
         recipes: {
           data: action.payload,
+        },
+      };
+    case ADD_RECIPE:
+      return {
+        ...state,
+        recipes: {
+          data: [...state.recipes.data, action.payload],
         },
       };
     default:

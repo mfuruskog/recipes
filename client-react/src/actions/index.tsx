@@ -1,4 +1,4 @@
-import { SET_RECIPES } from '../constants';
+import { SET_RECIPES, ADD_RECIPE } from '../constants';
 import { Recipe } from '../types';
 
 export function setRecipes(data: Recipe[]) {
@@ -7,4 +7,12 @@ export function setRecipes(data: Recipe[]) {
     payload: data,
   };
 }
-export type ActionType = ReturnType<typeof setRecipes>;
+
+export function addRecipe(recipe: Recipe) {
+  return {
+    type: ADD_RECIPE,
+    payload: recipe,
+  };
+}
+
+export type ActionType = { type: string; payload?: any };

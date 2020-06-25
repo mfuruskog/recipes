@@ -7,12 +7,14 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import RecipeForm from '../components/RecipeForm';
+import { useHistory } from 'react-router-dom';
 
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
 const Main = tw.main`flex flex-wrap justify-between sm:w-full md:w-1/2 px-4 mt-4`;
 
 const AddRecipe: React.FC = () => {
+  const history = useHistory();
   return (
     <div>
       <Header>
@@ -22,7 +24,7 @@ const AddRecipe: React.FC = () => {
         </Link>
       </Header>
       <Main>
-        <RecipeForm></RecipeForm>
+        <RecipeForm callback={() => history.push('/')}></RecipeForm>
       </Main>
     </div>
   );

@@ -71,7 +71,12 @@ const RecipeDetails: React.FC = () => {
           </RecipeLink>
         </React.Fragment>
       );
-    return <RecipeForm recipe={recipe}></RecipeForm>;
+    return (
+      <RecipeForm
+        recipe={recipe}
+        callback={() => console.log('oj')}
+      ></RecipeForm>
+    );
   };
 
   return (
