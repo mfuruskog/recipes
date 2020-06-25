@@ -32,7 +32,7 @@ const ValidationMessage = tw.span`text-sm font-light text-red-600`;
 export type RecipeFormData = {
   title: string;
   url: string;
-  rating: number;
+  rating: string;
   type: string;
   description: string;
 };
@@ -41,12 +41,13 @@ interface RecipeFormProps {
   recipe?: Recipe;
   callback: Function;
 }
+
 const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
   const { handleSubmit, register, errors, watch } = useForm<RecipeFormData>({
     defaultValues: {
       title: recipe?.title,
       url: recipe?.url,
-      rating: recipe?.rating,
+      rating: recipe?.rating.toString(),
       type: recipe?.type,
       description: recipe?.description,
     },
@@ -54,6 +55,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
   const onSubmit = (values: RecipeFormData) => {
     callback(values, recipe?._id);
   };
+
   const watchRating = watch('rating');
   const watchType = watch('type');
   return (
@@ -99,7 +101,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
                 value={i + 1}
               />
               <FontAwesomeIcon
-                icon={i + 1 <= watchRating ? faStarSolid : faStarRegular}
+                icon={
+                  i + 1 <= parseInt(watchRating) ? faStarSolid : faStarRegular
+                }
               ></FontAwesomeIcon>
             </label>
           ))}
