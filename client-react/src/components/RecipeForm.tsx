@@ -12,6 +12,7 @@ import { Recipe } from '../types';
 
 const Form = tw.form`flex flex-col`;
 const Label = tw.label`flex flex-wrap mb-4`;
+const RadioGroup = tw.div`mb-4`;
 const TextInput = tw.input`w-full p-1 rounded-sm`;
 const Rating = tw.div`w-full text-yellow-600 text-xl`;
 const RatingInput = tw.input`absolute h-0 w-0 cursor-pointer`;
@@ -89,8 +90,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
         )}
       </Label>
 
-      <Label>
-        Betyg{' '}
+      <RadioGroup>
+        Betyg
         <Rating>
           {[...Array(MAX_RATING)].map((e, i) => (
             <label key={i + 1}>
@@ -111,8 +112,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
         {errors.rating && (
           <ValidationMessage>{errors.rating.message}</ValidationMessage>
         )}
-      </Label>
-      <Label>
+      </RadioGroup>
+      <RadioGroup>
         Typ
         <Type>
           {RECIPE_TYPES.map((r, i) => (
@@ -130,7 +131,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
         {errors.type && (
           <ValidationMessage>{errors.type.message}</ValidationMessage>
         )}
-      </Label>
+      </RadioGroup>
       <Label>
         Beskrivning eller kommentar
         <DescriptionInput
