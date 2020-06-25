@@ -28,9 +28,11 @@ const RecipeType = tw.span``;
 const RecipeDescription = tw.div`w-full my-3`;
 const RecipeLink = tw.a`text-green-600`;
 const Menu = tw.span``;
+const Back = tw.button`flex`;
 const BackIcon = styled(FontAwesomeIcon)`
   ${tw`text-2xl mr-1`}
 `;
+const DeleteButton = tw.button`mr-4`;
 
 const RecipeDetails: React.FC = () => {
   const { id } = useParams();
@@ -47,14 +49,12 @@ const RecipeDetails: React.FC = () => {
     if (!isEditing && recipe)
       return (
         <React.Fragment>
-          <Link tw="flex" to={`/`}>
+          <Back onClick={() => history.push('/')}>
             <BackIcon icon={faAngleLeft} />
             Bakåt
-          </Link>
+          </Back>
           <Menu>
-            <FontAwesomeIcon
-              tw="mr-4"
-              icon={faTrash}
+            <DeleteButton
               onClick={() =>
                 axios
                   .delete(`http://localhost:3000/recipes/${recipe._id}`)
@@ -63,8 +63,12 @@ const RecipeDetails: React.FC = () => {
                     history.push('/');
                   })
               }
-            />
-            <FontAwesomeIcon icon={faEdit} onClick={() => setIsEditing(true)} />
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </DeleteButton>
+            <button onClick={() => setIsEditing(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
           </Menu>
         </React.Fragment>
       );
@@ -103,7 +107,7 @@ const RecipeDetails: React.FC = () => {
             .put(`http://localhost:3000/recipes/${_id}`, values)
             .then((response) => {
               dispatch(updateRecipe(response.data));
-              history.push('/');
+              setIsEditing(false);
             });
         }}
       ></RecipeForm>

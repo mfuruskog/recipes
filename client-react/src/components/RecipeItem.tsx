@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { Recipe } from '../types/index';
 
-const Container = tw.div`flex flex-wrap justify-between bg-white p-3 border-b border-gray-200`;
+const Container = tw.div`flex flex-wrap justify-between bg-white p-3 border-b border-gray-200 cursor-pointer`;
 const Created = tw.div`text-sm text-gray-500`;
 const Title = tw.h2`w-full text-lg font-semibold`;
 const Type = tw.span``;
