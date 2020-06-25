@@ -1,6 +1,11 @@
 import { Recipe } from '../types';
 
-import { SET_RECIPES, ADD_RECIPE, UPDATE_RECIPE } from '../constants';
+import {
+  SET_RECIPES,
+  ADD_RECIPE,
+  UPDATE_RECIPE,
+  DELETE_RECIPE,
+} from '../constants';
 import { ActionType } from '../actions';
 
 export const initialState = {
@@ -35,6 +40,15 @@ export default function reducer(
         recipes: {
           data: state.recipes.data.map((recipe) =>
             recipe._id === action.payload._id ? action.payload : recipe
+          ),
+        },
+      };
+    case DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: {
+          data: state.recipes.data.filter(
+            (recipe) => recipe._id !== action.payload
           ),
         },
       };

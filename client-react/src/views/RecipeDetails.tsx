@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import tw from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -11,13 +11,14 @@ import {
   faExternalLinkAlt,
   faAngleLeft,
   faEdit,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
 import { RecipeContext } from '../contexts/recipe-context';
-import { updateRecipe } from '../actions';
+import { updateRecipe, deleteRecipe } from '../actions';
 
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
@@ -26,6 +27,10 @@ const RecipeTitle = tw.h1`w-full text-center text-2xl font-semibold border-b bor
 const RecipeType = tw.span``;
 const RecipeDescription = tw.div`w-full my-3`;
 const RecipeLink = tw.a`text-green-600`;
+const Menu = tw.span``;
+const BackIcon = styled(FontAwesomeIcon)`
+  ${tw`text-2xl mr-1`}
+`;
 
 const RecipeDetails: React.FC = () => {
   const { id } = useParams();
@@ -39,14 +44,28 @@ const RecipeDetails: React.FC = () => {
   }, [state, id]);
 
   const HeaderContent = () => {
-    if (!isEditing)
+    if (!isEditing && recipe)
       return (
         <React.Fragment>
           <Link tw="flex" to={`/`}>
-            <FontAwesomeIcon icon={faAngleLeft} tw="text-2xl mr-1" />
+            <BackIcon icon={faAngleLeft} />
             Bakåt
           </Link>
-          <FontAwesomeIcon icon={faEdit} onClick={() => setIsEditing(true)} />
+          <Menu>
+            <FontAwesomeIcon
+              tw="mr-4"
+              icon={faTrash}
+              onClick={() =>
+                axios
+                  .delete(`http://localhost:3000/recipes/${recipe._id}`)
+                  .then((response) => {
+                    dispatch(deleteRecipe(response.data._id));
+                    history.push('/');
+                  })
+              }
+            />
+            <FontAwesomeIcon icon={faEdit} onClick={() => setIsEditing(true)} />
+          </Menu>
         </React.Fragment>
       );
     return (

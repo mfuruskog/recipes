@@ -40,7 +40,7 @@ export class RecipesController {
   }
 
   @Delete(':id')
-  async Delete(@Param('id') id: string): Promise<string> {
-    return 'Deleted';
+  async Delete(@Param('id') id: string): Promise<Recipe> {
+    return this.recipesService.delete(id);
   }
 }
