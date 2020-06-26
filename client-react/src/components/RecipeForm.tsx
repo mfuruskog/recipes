@@ -6,7 +6,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { MAX_RATING, RECIPE_TYPES } from '../constants';
 import { Recipe } from '../types';
 
@@ -14,8 +13,17 @@ const Form = tw.form`flex flex-col`;
 const Label = tw.label`flex flex-wrap mb-4`;
 const RadioGroup = tw.div`mb-4`;
 const TextInput = tw.input`w-full p-1 rounded-sm`;
-const Rating = tw.div`w-full text-yellow-600 text-xl`;
+const Rating = tw.div`w-full flex justify-end flex-row-reverse text-yellow-600 text-xl`;
+const RatingLabel = tw.label`cursor-pointer`;
 const RatingInput = tw.input`absolute h-0 w-0 cursor-pointer`;
+
+type StarProps = {
+  active: boolean;
+};
+const Star = styled(FontAwesomeIcon)<StarProps>`
+  ${tw`text-gray-400 text-2xl`}
+  ${({ active }) => active && tw`text-yellow-600`}
+`;
 
 const Type = tw.div`w-full text-xl`;
 type TypeProps = {
@@ -94,19 +102,18 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
         Betyg
         <Rating>
           {[...Array(MAX_RATING)].map((e, i) => (
-            <label key={i + 1}>
+            <RatingLabel className={'star'} key={MAX_RATING - i}>
               <RatingInput
                 type="radio"
                 name="rating"
                 ref={register({ required: 'Obligatoriskt' })}
-                value={i + 1}
+                value={MAX_RATING - i}
               />
-              <FontAwesomeIcon
-                icon={
-                  i + 1 <= parseInt(watchRating) ? faStarSolid : faStarRegular
-                }
-              ></FontAwesomeIcon>
-            </label>
+              <Star
+                icon={faStarSolid}
+                active={MAX_RATING - i <= parseInt(watchRating)}
+              ></Star>
+            </RatingLabel>
           ))}
         </Rating>
         {errors.rating && (
