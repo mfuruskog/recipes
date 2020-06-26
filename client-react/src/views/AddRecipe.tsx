@@ -33,7 +33,7 @@ const AddRecipe: React.FC = () => {
         <RecipeForm
           callback={(values: RecipeFormData) => {
             axios
-              .post(`http://localhost:3000/recipes`, values)
+              .post(`${process.env.REACT_APP_API_URL}/recipes`, values)
               .then((response) => {
                 dispatch(addRecipe(response.data));
                 history.push('/');

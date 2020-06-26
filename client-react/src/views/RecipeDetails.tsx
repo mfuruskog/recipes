@@ -5,7 +5,7 @@ import tw, { styled } from 'twin.macro';
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faExternalLinkAlt,
@@ -57,7 +57,9 @@ const RecipeDetails: React.FC = () => {
             <DeleteButton
               onClick={() =>
                 axios
-                  .delete(`http://localhost:3000/recipes/${recipe._id}`)
+                  .delete(
+                    `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`
+                  )
                   .then((response) => {
                     dispatch(deleteRecipe(response.data._id));
                     history.push('/');
@@ -104,7 +106,7 @@ const RecipeDetails: React.FC = () => {
         recipe={recipe}
         callback={(values: RecipeFormData, _id: string) => {
           axios
-            .put(`http://localhost:3000/recipes/${_id}`, values)
+            .put(`${process.env.REACT_APP_API_URL}/recipes/${_id}`, values)
             .then((response) => {
               dispatch(updateRecipe(response.data));
               setIsEditing(false);

@@ -18,7 +18,7 @@ export const RecipeProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/recipes`)
+      .get(`${process.env.REACT_APP_API_URL}/recipes`)
       .then((response) => dispatch(setRecipes(response.data)));
   }, [dispatch]);
 
