@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { MAX_RATING, RECIPE_TYPES } from '../constants';
 import { Recipe } from '../types';
+import Emoji from '../components/Emoji';
 
 const Form = tw.form`flex flex-col`;
 const Label = tw.label`flex flex-wrap mb-4`;
@@ -134,7 +135,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
                 ref={register({ required: 'Obligatoriskt' })}
                 value={r.type}
               />{' '}
-              {r.emoji}
+              <Emoji symbol={r.emoji} label={r.name} />
             </TypeLabel>
           ))}
         </Type>
