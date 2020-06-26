@@ -30,7 +30,7 @@ type TypeProps = {
   selected: boolean;
 };
 const TypeLabel = styled.label<TypeProps>`
-  ${tw`opacity-25`}
+  ${tw`opacity-25 hover:opacity-100 cursor-pointer transition duration-100 ease-in`}
   ${({ selected }) => selected && tw`opacity-100`}
 `;
 const TypeInput = tw.input`absolute h-0 w-0 cursor-pointer`;
