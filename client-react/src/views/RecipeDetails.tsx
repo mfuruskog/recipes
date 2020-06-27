@@ -16,6 +16,7 @@ import {
 
 import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
+import Emoji from '../components/Emoji';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
 import { RecipeContext } from '../contexts/recipe-context';
 import { updateRecipe, deleteRecipe } from '../actions';
@@ -94,7 +95,9 @@ const RecipeDetails: React.FC = () => {
         <React.Fragment>
           <RecipeTitle>{recipe.title}</RecipeTitle>
           <Rating rating={recipe.rating}></Rating>
-          <RecipeType>{recipe.type}</RecipeType>
+          <RecipeType>
+            <Emoji symbol={recipe.type.emoji} label={recipe.type.name}></Emoji>
+          </RecipeType>
           <RecipeDescription>{recipe.description}</RecipeDescription>
           <RecipeLink href={recipe.url}>
             Gå till recept <FontAwesomeIcon icon={faExternalLinkAlt} />

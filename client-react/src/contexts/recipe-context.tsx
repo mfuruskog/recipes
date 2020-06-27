@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import axios from 'axios';
 import reducer, { initialState, StateType } from '../reducers';
-import { setRecipes, ActionType } from '../actions';
+import { setRecipes, setRecipeTypes, ActionType } from '../actions';
 
 type Props = {
   children: React.ReactNode;
@@ -20,6 +20,9 @@ export const RecipeProvider = ({ children }: Props) => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/recipes`)
       .then((response) => dispatch(setRecipes(response.data)));
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/recipetypes`)
+      .then((response) => dispatch(setRecipeTypes(response.data)));
   }, [dispatch]);
 
   return (

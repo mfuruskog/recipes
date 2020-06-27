@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import Rating from '../components/Rating';
 import { Recipe } from '../types/index';
+import Emoji from '../components/Emoji';
 
 const Container = tw.div`flex flex-wrap justify-between bg-white p-3 border-b border-gray-200 cursor-pointer`;
 const Created = tw.div`text-sm text-gray-500`;
@@ -19,7 +20,9 @@ const RecipeItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
     <Container onClick={() => history.push(`recipe/${recipe._id}`)}>
       <Created>2020-06-07</Created>
       <Title>{recipe.title}</Title>
-      <Type>{recipe.type}</Type>
+      <Type>
+        <Emoji symbol={recipe.type.emoji} label={recipe.type.name}></Emoji>
+      </Type>
       <Rating rating={recipe.rating}></Rating>
     </Container>
   );

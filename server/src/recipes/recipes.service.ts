@@ -13,11 +13,20 @@ export class RecipesService {
 
   async create(createRecipeDto: CreateRecipeDto) {
     const createdRecipe = new this.recipeModel(createRecipeDto);
-    return await createdRecipe.save();
+
+    await createdRecipe.save();
+
+    return await this.recipeModel
+      .findById(createdRecipe._id)
+      .populate('type')
+      .exec();
   }
 
   async findAll(): Promise<Recipe[]> {
-    return await this.recipeModel.find().exec();
+    return await this.recipeModel
+      .find()
+      .populate('type')
+      .exec();
   }
 
   async findOne(id: string): Promise<Recipe> {

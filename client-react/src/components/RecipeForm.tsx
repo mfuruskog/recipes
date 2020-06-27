@@ -2,12 +2,13 @@
 
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
-import { MAX_RATING, RECIPE_TYPES } from '../constants';
+import { MAX_RATING } from '../constants';
 import { Recipe } from '../types';
+import { RecipeContext } from '../contexts/recipe-context';
 import Emoji from '../components/Emoji';
 
 const Form = tw.form`flex flex-col`;
@@ -25,7 +26,7 @@ type StarProps = {
 
 const Star = styled(FontAwesomeIcon)<StarProps>`
   ${tw`text-gray-400`}
-  ${({ index, rating }) => index < rating && tw`text-yellow-600`}
+  ${({ index, rating }) => index <= rating && tw`text-yellow-600`}
 `;
 
 const Type = tw.div`w-full text-xl`;
@@ -60,10 +61,11 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       title: recipe?.title,
       url: recipe?.url,
       rating: recipe?.rating.toString(),
-      type: recipe?.type,
+      type: recipe?.type._id,
       description: recipe?.description,
     },
   });
+  const { state } = useContext(RecipeContext);
   const onSubmit = (values: RecipeFormData) => {
     callback(values, recipe?._id);
   };
@@ -127,13 +129,13 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       <RadioGroup>
         Typ
         <Type>
-          {RECIPE_TYPES.map((r, i) => (
-            <TypeLabel key={i} selected={watchType === r.type}>
+          {state.recipeTypes.data.map((r, i) => (
+            <TypeLabel key={i} selected={watchType === r._id}>
               <TypeInput
                 type="radio"
                 name="type"
                 ref={register({ required: 'Obligatoriskt' })}
-                value={r.type}
+                value={r._id}
               />{' '}
               <Emoji symbol={r.emoji} label={r.name} />
             </TypeLabel>

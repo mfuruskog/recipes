@@ -1,16 +1,20 @@
-import { Recipe } from '../types';
+import { Recipe, RecipeType } from '../types';
 
 import {
   SET_RECIPES,
   ADD_RECIPE,
   UPDATE_RECIPE,
   DELETE_RECIPE,
+  SET_RECIPE_TYPES,
 } from '../constants';
 import { ActionType } from '../actions';
 
 export const initialState = {
   recipes: {
     data: [] as Recipe[],
+  },
+  recipeTypes: {
+    data: [] as RecipeType[],
   },
 };
 export type StateType = typeof initialState;
@@ -50,6 +54,13 @@ export default function reducer(
           data: state.recipes.data.filter(
             (recipe) => recipe._id !== action.payload
           ),
+        },
+      };
+    case SET_RECIPE_TYPES:
+      return {
+        ...state,
+        recipeTypes: {
+          data: action.payload,
         },
       };
     default:

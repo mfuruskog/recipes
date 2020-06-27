@@ -4,11 +4,12 @@ export interface Recipe {
   description: string;
   url: string;
   rating: number;
-  type: string;
+  type: RecipeType;
 }
 
 export interface RecipeType {
-  type: string;
+  _id: string;
+  key: string;
   name: string;
   emoji: string;
 }
