@@ -21,12 +21,13 @@ const RatingInput = tw.input`absolute h-0 w-0 cursor-pointer`;
 
 type StarProps = {
   index: number;
-  rating: number;
+  rating: string;
 };
 
 const Star = styled(FontAwesomeIcon)<StarProps>`
   ${tw`text-gray-400`}
-  ${({ index, rating }) => index <= rating && tw`text-yellow-600`}
+  ${({ index, rating }) =>
+    rating && index <= parseInt(rating) && tw`text-yellow-600`}
 `;
 
 const Type = tw.div`w-full text-xl`;
@@ -117,7 +118,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
               <Star
                 icon={faStarSolid}
                 index={MAX_RATING - i}
-                rating={parseInt(watchRating)}
+                rating={watchRating}
               ></Star>
             </RatingLabel>
           ))}
