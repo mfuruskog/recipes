@@ -11,9 +11,10 @@ import { useHistory } from 'react-router-dom';
 import { RecipeContext } from '../contexts/recipe-context';
 import { addRecipe } from '../actions';
 
+const Container = tw.div`w-full md:w-1/2`;
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
-const Main = tw.main`flex flex-wrap justify-between sm:w-full md:w-1/2 px-4 mt-4`;
+const Main = tw.main`flex flex-wrap justify-between px-4 mt-4`;
 const Back = tw.button`flex`;
 const BackIcon = styled(FontAwesomeIcon)`
   ${tw`text-2xl mr-1`}
@@ -22,7 +23,7 @@ const AddRecipe: React.FC = () => {
   const history = useHistory();
   const { dispatch } = useContext(RecipeContext);
   return (
-    <div>
+    <Container>
       <Header>
         <Back onClick={() => history.push('/')}>
           <BackIcon icon={faAngleLeft} />
@@ -41,7 +42,7 @@ const AddRecipe: React.FC = () => {
           }}
         ></RecipeForm>
       </Main>
-    </div>
+    </Container>
   );
 };
 

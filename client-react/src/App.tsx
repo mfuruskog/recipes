@@ -9,7 +9,7 @@ import Home from './views/Home';
 import RecipeDetails from './views/RecipeDetails';
 import AddRecipe from './views/AddRecipe';
 
-const RouteContainer = tw.div`mt-10`;
+const RouteContainer = tw.div`mt-10 flex justify-center`;
 
 function App() {
   return (

@@ -11,7 +11,7 @@ import { Recipe } from '../types';
 import { RecipeContext } from '../contexts/recipe-context';
 import Emoji from '../components/Emoji';
 
-const Form = tw.form`flex flex-col`;
+const Form = tw.form`flex flex-col w-full`;
 const Label = tw.label`flex flex-wrap mb-4`;
 const RadioGroup = tw.div`mb-4`;
 const TextInput = tw.input`w-full p-1 rounded-sm`;

@@ -21,9 +21,10 @@ import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
 import { RecipeContext } from '../contexts/recipe-context';
 import { updateRecipe, deleteRecipe } from '../actions';
 
+const Container = tw.div`w-full md:w-1/2`;
 const Header = tw.header`flex justify-between px-4 mt-4`;
 
-const Main = tw.main`flex flex-wrap justify-between sm:w-full md:w-1/2 px-4 mt-4`;
+const Main = tw.main`flex flex-wrap justify-between px-4 mt-4`;
 const RecipeTitle = tw.h1`w-full text-center text-2xl font-semibold border-b border-gray-300 mb-4`;
 const RecipeType = tw.span``;
 const RecipeDescription = tw.div`w-full my-3`;
@@ -120,14 +121,14 @@ const RecipeDetails: React.FC = () => {
   };
 
   return (
-    <React.Fragment>
+    <Container>
       <Header>
         <HeaderContent></HeaderContent>
       </Header>
       <Main>
         <MainContent></MainContent>
       </Main>
-    </React.Fragment>
+    </Container>
   );
 };
 
