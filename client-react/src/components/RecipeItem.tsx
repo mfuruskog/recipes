@@ -4,6 +4,7 @@ import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import Rating from '../components/Rating';
 import { Recipe } from '../types/index';
@@ -18,7 +19,7 @@ const RecipeItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const history = useHistory();
   return (
     <Container onClick={() => history.push(`recipe/${recipe._id}`)}>
-      <Created>2020-06-07</Created>
+      <Created>{format(new Date(recipe.create_date), 'yyyy-MM-dd')}</Created>
       <Title>{recipe.title}</Title>
       <Type>
         <Emoji symbol={recipe.type.emoji} label={recipe.type.name}></Emoji>
