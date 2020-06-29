@@ -6,6 +6,7 @@ import {
   UPDATE_RECIPE,
   DELETE_RECIPE,
   SET_RECIPE_TYPES,
+  SET_FILTER,
 } from '../constants';
 import { ActionType } from '../actions';
 
@@ -15,6 +16,9 @@ export const initialState = {
   },
   recipeTypes: {
     data: [] as RecipeType[],
+  },
+  filters: {
+    type: '',
   },
 };
 export type StateType = typeof initialState;
@@ -62,6 +66,11 @@ export default function reducer(
         recipeTypes: {
           data: action.payload,
         },
+      };
+    case SET_FILTER:
+      return {
+        ...state,
+        filters: action.payload,
       };
     default:
       return state;

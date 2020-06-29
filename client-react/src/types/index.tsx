@@ -14,3 +14,7 @@ export interface RecipeType {
   name: string;
   emoji: string;
 }
+
+export interface RecipeFilter {
+  type?: string;
+}

@@ -4,8 +4,9 @@ import {
   UPDATE_RECIPE,
   DELETE_RECIPE,
   SET_RECIPE_TYPES,
+  SET_FILTER,
 } from '../constants';
-import { Recipe, RecipeType } from '../types';
+import { Recipe, RecipeType, RecipeFilter } from '../types';
 
 export function setRecipes(data: Recipe[]) {
   return {
@@ -39,6 +40,13 @@ export function setRecipeTypes(recipeTypes: RecipeType[]) {
   return {
     type: SET_RECIPE_TYPES,
     payload: recipeTypes,
+  };
+}
+
+export function setFilter(filter: RecipeFilter) {
+  return {
+    type: SET_FILTER,
+    payload: filter,
   };
 }
 
