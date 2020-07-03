@@ -1,0 +1,17 @@
+body {
+  height: 100%;
+  background-color: #fff5f5;
+}
+
+/* TODO Fix this through emotion? */
+.star svg {
+  transition: 0.3s;
+}
+.star:hover svg {
+  color: #d69e2e;
+  transition: 0.3s;
+}
+.star:hover ~ .star svg {
+  color: #d69e2e;
+  transition: 0.3s;
+}
