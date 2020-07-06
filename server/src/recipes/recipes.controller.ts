@@ -6,11 +6,13 @@ import {
   Body,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { RecipesService } from './recipes.service';
 import { Recipe } from './interfaces/recipe.interface';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('recipes')
 export class RecipesController {
@@ -21,6 +23,7 @@ export class RecipesController {
     return this.recipesService.create(createRecipeDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(): Promise<Recipe[]> {
     return this.recipesService.findAll();
