@@ -4,10 +4,18 @@ import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'tailwindcss/dist/base.min.css';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH_CLIENTID}
+      redirectUri={window.location.origin}
+      audience={process.env.REACT_APP_AUTH_AUDIENCE}
+    >
+      <App />
+    </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
