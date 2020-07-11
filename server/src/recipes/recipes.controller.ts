@@ -7,6 +7,7 @@ import {
   Put,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
@@ -25,8 +26,8 @@ export class RecipesController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  async findAll(): Promise<Recipe[]> {
-    return this.recipesService.findAll();
+  async findAll(@Request() req): Promise<Recipe[]> {
+    return this.recipesService.findAll(req.user.sub);
   }
 
   @Get(':id')

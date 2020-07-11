@@ -22,9 +22,11 @@ export class RecipesService {
       .exec();
   }
 
-  async findAll(): Promise<Recipe[]> {
+  async findAll(userId: string): Promise<Recipe[]> {
     return await this.recipeModel
       .find()
+      .where('user_id')
+      .equals(userId)
       .populate('type')
       .exec();
   }

@@ -48,43 +48,47 @@ const RecipeDetails: React.FC = () => {
   }, [state, id]);
 
   const HeaderContent = () => {
-    if (!isEditing && recipe)
+    if (isEditing)
       return (
         <React.Fragment>
-          <Back onClick={() => history.push('/')}>
-            <BackIcon icon={faAngleLeft} />
-            Bakåt
-          </Back>
-          <Menu>
-            <DeleteButton
-              onClick={() =>
-                axios
-                  .delete(
-                    `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`
-                  )
-                  .then((response) => {
-                    dispatch(deleteRecipe(response.data._id));
-                    history.push('/');
-                  })
-              }
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </DeleteButton>
-            <button onClick={() => setIsEditing(true)}>
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-          </Menu>
+          <button tw="flex" onClick={() => setIsEditing(false)}>
+            Avbryt
+          </button>
+
+          <button tw="flex" onClick={() => setIsEditing(false)}>
+            Spara
+          </button>
         </React.Fragment>
       );
     return (
       <React.Fragment>
-        <button tw="flex" onClick={() => setIsEditing(false)}>
-          Avbryt
-        </button>
-
-        <button tw="flex" onClick={() => setIsEditing(false)}>
-          Spara
-        </button>
+        <Back onClick={() => history.push('/')}>
+          <BackIcon icon={faAngleLeft} />
+          Bakåt
+        </Back>
+        <Menu>
+          {recipe ? (
+            <React.Fragment>
+              <DeleteButton
+                onClick={() =>
+                  axios
+                    .delete(
+                      `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`
+                    )
+                    .then((response) => {
+                      dispatch(deleteRecipe(response.data._id));
+                      history.push('/');
+                    })
+                }
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </DeleteButton>
+              <button onClick={() => setIsEditing(true)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+            </React.Fragment>
+          ) : null}
+        </Menu>
       </React.Fragment>
     );
   };
