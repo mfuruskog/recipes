@@ -19,9 +19,13 @@ import { AuthGuard } from '@nestjs/passport';
 export class RecipesController {
   constructor(private readonly recipesService: RecipesService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
-  async create(@Body() createRecipeDto: CreateRecipeDto): Promise<string> {
-    return this.recipesService.create(createRecipeDto);
+  async create(
+    @Request() req,
+    @Body() createRecipeDto: CreateRecipeDto,
+  ): Promise<string> {
+    return this.recipesService.create(req.user.sub, createRecipeDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -35,6 +39,7 @@ export class RecipesController {
     return this.recipesService.findOne(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -43,6 +48,7 @@ export class RecipesController {
     return this.recipesService.update(id, updateRecipeDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   async Delete(@Param('id') id: string): Promise<Recipe> {
     return this.recipesService.delete(id);

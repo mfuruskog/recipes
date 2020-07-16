@@ -40,7 +40,7 @@ const TypeLabel = styled.label<TypeProps>`
 `;
 const TypeInput = tw.input`absolute h-0 w-0 cursor-pointer`;
 const DescriptionInput = tw.textarea`w-full resize-none h-32 p-1`;
-const Submit = tw.button`bg-red-300 p-1 rounded-md font-bold`;
+const Submit = tw.button`bg-red-400 text-white font-semibold p-1 rounded-md`;
 const ValidationMessage = tw.span`text-sm font-light text-red-600`;
 
 export type RecipeFormData = {

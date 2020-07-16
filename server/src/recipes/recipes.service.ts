@@ -11,9 +11,9 @@ export class RecipesService {
     @InjectModel('Recipe') private readonly recipeModel: Model<Recipe>,
   ) {}
 
-  async create(createRecipeDto: CreateRecipeDto) {
+  async create(userId: string, createRecipeDto: CreateRecipeDto) {
     const createdRecipe = new this.recipeModel(createRecipeDto);
-
+    createdRecipe.user_id = userId;
     await createdRecipe.save();
 
     return await this.recipeModel

@@ -4,6 +4,7 @@ import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
 import React, { useContext } from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
@@ -22,6 +23,8 @@ const BackIcon = styled(FontAwesomeIcon)`
 const AddRecipe: React.FC = () => {
   const history = useHistory();
   const { dispatch } = useContext(RecipeContext);
+  const { getAccessTokenSilently } = useAuth0();
+
   return (
     <Container>
       <Header>
@@ -33,12 +36,24 @@ const AddRecipe: React.FC = () => {
       <Main>
         <RecipeForm
           callback={(values: RecipeFormData) => {
-            axios
-              .post(`${process.env.REACT_APP_API_URL}/recipes`, values)
-              .then((response) => {
-                dispatch(addRecipe(response.data));
-                history.push('/');
-              });
+            const post = async () => {
+              try {
+                const accessToken = await getAccessTokenSilently({
+                  audience: process.env.REACT_APP_AUTH_AUDIENCE,
+                });
+                axios
+                  .post(`${process.env.REACT_APP_API_URL}/recipes`, values, {
+                    headers: { authorization: `Bearer ${accessToken}` },
+                  })
+                  .then((response) => {
+                    dispatch(addRecipe(response.data));
+                    history.push('/');
+                  });
+              } catch (e) {
+                console.log(e.message);
+              }
+            };
+            post();
           }}
         ></RecipeForm>
       </Main>
