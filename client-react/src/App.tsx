@@ -10,17 +10,16 @@ import RecipeDetails from './views/RecipeDetails';
 import AddRecipe from './views/AddRecipe';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import ClipLoader from 'react-spinners/ClipLoader';
+import Loader from './components/Loader';
 
 const RouteContainer = tw.div`mt-10 flex justify-center`;
-const Loader = styled(ClipLoader)``;
 
 function App() {
   const { isLoading } = useAuth0();
   if (isLoading) {
     return (
       <div tw="w-full h-screen flex justify-center items-center">
-        <Loader color={'#FC8181'} size={32} />
+        <Loader />
       </div>
     );
   }
