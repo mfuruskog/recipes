@@ -41,7 +41,7 @@ export const RecipeProvider = ({ children }: Props) => {
       };
       getData();
     }
-  }, [dispatch]);
+  }, [dispatch, getAccessTokenSilently, isAuthenticated]);
 
   return (
     <RecipeContext.Provider value={{ state, dispatch }}>

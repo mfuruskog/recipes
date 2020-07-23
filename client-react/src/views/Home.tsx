@@ -8,13 +8,13 @@ import Header from '../components/Header';
 import Filters from '../components/Filters';
 import RecipeItem from '../components/RecipeItem';
 import LoginButton from '../components/LoginButton';
+import Button from '../components/Button';
 import { RecipeContext } from '../contexts/recipe-context';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 
 const Container = tw.div`w-full md:w-1/2`;
 const Main = tw.main`h-full`;
-const AddRecipeButton = tw.button`bg-red-400 text-white font-semibold rounded-md px-4 h-8 mb-8`;
 const LoginContainer = tw.div`w-full flex flex-wrap justify-center`;
 const Intro = tw.p`p-4 text-xl mb-4`;
 
@@ -39,9 +39,9 @@ const Home: React.FC = () => {
       {isAuthenticated ? (
         <React.Fragment>
           <div tw="w-full flex justify-center">
-            <AddRecipeButton onClick={() => history.push('/add')}>
+            <Button onClick={() => history.push('/add')}>
               Lägg till recept
-            </AddRecipeButton>
+            </Button>
           </div>
           <Main>
             <Filters></Filters>

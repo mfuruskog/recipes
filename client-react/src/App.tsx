@@ -16,7 +16,7 @@ const RouteContainer = tw.div`mt-10 flex justify-center`;
 const Loader = styled(ClipLoader)``;
 
 function App() {
-  const { isLoading, error } = useAuth0();
+  const { isLoading } = useAuth0();
   if (isLoading) {
     return (
       <div tw="w-full h-screen flex justify-center items-center">
