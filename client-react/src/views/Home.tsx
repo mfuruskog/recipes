@@ -15,7 +15,8 @@ import { useHistory } from 'react-router-dom';
 const Container = tw.div`w-full md:w-1/2`;
 const Main = tw.main`h-full`;
 const AddRecipeButton = tw.button`bg-red-400 text-white font-semibold rounded-md px-4 h-8 mb-8`;
-const LoginContainer = tw.div`w-full flex justify-center mt-12`;
+const LoginContainer = tw.div`w-full flex flex-wrap justify-center`;
+const Intro = tw.p`p-4 text-xl mb-4`;
 
 const Home: React.FC = () => {
   const { state } = useContext(RecipeContext);
@@ -42,8 +43,8 @@ const Home: React.FC = () => {
               Lägg till recept
             </AddRecipeButton>
           </div>
-          <Filters></Filters>
           <Main>
+            <Filters></Filters>
             {filterData().map((recipe, index) => (
               <RecipeItem recipe={recipe} key={index}></RecipeItem>
             ))}
@@ -51,6 +52,10 @@ const Home: React.FC = () => {
         </React.Fragment>
       ) : (
         <LoginContainer>
+          <Intro>
+            I Receptlådan kan du lagra dina receptlänkar på ett smidigt sätt.
+            Kom igång genom att logga in!
+          </Intro>
           <LoginButton></LoginButton>
         </LoginContainer>
       )}
