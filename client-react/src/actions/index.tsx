@@ -1,4 +1,5 @@
 import {
+  SET_RECIPES_LOADING,
   SET_RECIPES,
   ADD_RECIPE,
   UPDATE_RECIPE,
@@ -8,6 +9,12 @@ import {
 } from '../constants';
 import { Recipe, RecipeType, RecipeFilter } from '../types';
 
+export function setRecipesLoading() {
+  return {
+    type: SET_RECIPES_LOADING,
+    payload: {},
+  };
+}
 export function setRecipes(data: Recipe[]) {
   return {
     type: SET_RECIPES,

@@ -1,6 +1,7 @@
 import { Recipe, RecipeType } from '../types';
 
 import {
+  SET_RECIPES_LOADING,
   SET_RECIPES,
   ADD_RECIPE,
   UPDATE_RECIPE,
@@ -12,6 +13,7 @@ import { ActionType } from '../actions';
 
 export const initialState = {
   recipes: {
+    loading: false,
     data: [] as Recipe[],
   },
   recipeTypes: {
@@ -28,11 +30,20 @@ export default function reducer(
   action: ActionType
 ) {
   switch (action.type) {
+    case SET_RECIPES_LOADING:
+      return {
+        ...state,
+        recipes: {
+          ...state.recipes,
+          loading: true,
+        },
+      };
     case SET_RECIPES:
       return {
         ...state,
         recipes: {
           data: action.payload,
+          loading: false,
         },
       };
     case ADD_RECIPE:
@@ -40,6 +51,7 @@ export default function reducer(
         ...state,
         recipes: {
           data: [...state.recipes.data, action.payload],
+          loading: false,
         },
       };
     case UPDATE_RECIPE:
@@ -49,6 +61,7 @@ export default function reducer(
           data: state.recipes.data.map((recipe) =>
             recipe._id === action.payload._id ? action.payload : recipe
           ),
+          loading: false,
         },
       };
     case DELETE_RECIPE:
@@ -58,6 +71,7 @@ export default function reducer(
           data: state.recipes.data.filter(
             (recipe) => recipe._id !== action.payload
           ),
+          loading: false,
         },
       };
     case SET_RECIPE_TYPES:

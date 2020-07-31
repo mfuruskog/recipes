@@ -1,7 +1,12 @@
 import React, { useReducer, useEffect } from 'react';
 import axios from 'axios';
 import reducer, { initialState, StateType } from '../reducers';
-import { setRecipes, setRecipeTypes, ActionType } from '../actions';
+import {
+  setRecipesLoading,
+  setRecipes,
+  setRecipeTypes,
+  ActionType,
+} from '../actions';
 import { useAuth0 } from '@auth0/auth0-react';
 
 type Props = {
@@ -21,6 +26,7 @@ export const RecipeProvider = ({ children }: Props) => {
   useEffect(() => {
     if (isAuthenticated) {
       const getData = async () => {
+        dispatch(setRecipesLoading());
         try {
           const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH_AUDIENCE,

@@ -12,9 +12,10 @@ import Button from '../components/Button';
 import { RecipeContext } from '../contexts/recipe-context';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const Container = tw.div`w-full md:w-1/2`;
-const Main = tw.main`h-full`;
+const Main = tw.main`flex flex-wrap justify-center`;
 const LoginContainer = tw.div`w-full flex flex-wrap justify-center`;
 const Intro = tw.p`p-4 text-xl mb-4`;
 
@@ -45,9 +46,13 @@ const Home: React.FC = () => {
           </div>
           <Main>
             <Filters></Filters>
-            {filterData().map((recipe, index) => (
-              <RecipeItem recipe={recipe} key={index}></RecipeItem>
-            ))}
+            {state.recipes.loading ? (
+              <Loader />
+            ) : (
+              filterData().map((recipe, index) => (
+                <RecipeItem recipe={recipe} key={index}></RecipeItem>
+              ))
+            )}
           </Main>
         </React.Fragment>
       ) : (
