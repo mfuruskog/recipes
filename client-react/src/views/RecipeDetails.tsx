@@ -13,6 +13,7 @@ import {
   faEdit,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
@@ -37,6 +38,7 @@ const BackIcon = styled(FontAwesomeIcon)`
 const DeleteButton = tw.button`mr-4`;
 
 const RecipeDetails: React.FC = () => {
+  const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
   const history = useHistory();
   const { state, dispatch } = useContext(RecipeContext);
@@ -48,43 +50,62 @@ const RecipeDetails: React.FC = () => {
   }, [state, id]);
 
   const HeaderContent = () => {
-    if (!isEditing && recipe)
+    if (isEditing)
       return (
         <React.Fragment>
-          <Back onClick={() => history.push('/')}>
-            <BackIcon icon={faAngleLeft} />
-            Bakåt
-          </Back>
-          <Menu>
-            <DeleteButton
-              onClick={() =>
-                axios
-                  .delete(
-                    `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`
-                  )
-                  .then((response) => {
-                    dispatch(deleteRecipe(response.data._id));
-                    history.push('/');
-                  })
-              }
-            >
-              <FontAwesomeIcon icon={faTrash} />
-            </DeleteButton>
-            <button onClick={() => setIsEditing(true)}>
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-          </Menu>
+          <button tw="flex" onClick={() => setIsEditing(false)}>
+            Avbryt
+          </button>
+
+          <button tw="flex" onClick={() => setIsEditing(false)}>
+            Spara
+          </button>
         </React.Fragment>
       );
     return (
       <React.Fragment>
-        <button tw="flex" onClick={() => setIsEditing(false)}>
-          Avbryt
-        </button>
-
-        <button tw="flex" onClick={() => setIsEditing(false)}>
-          Spara
-        </button>
+        <Back onClick={() => history.push('/')}>
+          <BackIcon icon={faAngleLeft} />
+          Bakåt
+        </Back>
+        <Menu>
+          {recipe ? (
+            <React.Fragment>
+              <DeleteButton
+                onClick={() => {
+                  const deleteCall = async () => {
+                    try {
+                      const accessToken = await getAccessTokenSilently({
+                        audience: process.env.REACT_APP_AUTH_AUDIENCE,
+                      });
+                      axios
+                        .delete(
+                          `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`,
+                          {
+                            headers: {
+                              authorization: `Bearer ${accessToken}`,
+                            },
+                          }
+                        )
+                        .then((response) => {
+                          dispatch(deleteRecipe(response.data._id));
+                          history.push('/');
+                        });
+                    } catch (e) {
+                      console.log(e.message);
+                    }
+                  };
+                  deleteCall();
+                }}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </DeleteButton>
+              <button onClick={() => setIsEditing(true)}>
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+            </React.Fragment>
+          ) : null}
+        </Menu>
       </React.Fragment>
     );
   };
@@ -109,12 +130,30 @@ const RecipeDetails: React.FC = () => {
       <RecipeForm
         recipe={recipe}
         callback={(values: RecipeFormData, _id: string) => {
-          axios
-            .put(`${process.env.REACT_APP_API_URL}/recipes/${_id}`, values)
-            .then((response) => {
-              dispatch(updateRecipe(response.data));
-              setIsEditing(false);
-            });
+          const put = async () => {
+            try {
+              const accessToken = await getAccessTokenSilently({
+                audience: process.env.REACT_APP_AUTH_AUDIENCE,
+              });
+              axios
+                .put(
+                  `${process.env.REACT_APP_API_URL}/recipes/${_id}`,
+                  values,
+                  {
+                    headers: {
+                      authorization: `Bearer ${accessToken}`,
+                    },
+                  }
+                )
+                .then((response) => {
+                  dispatch(updateRecipe(response.data));
+                  setIsEditing(false);
+                });
+            } catch (e) {
+              console.log(e.message);
+            }
+          };
+          put();
         }}
       ></RecipeForm>
     );

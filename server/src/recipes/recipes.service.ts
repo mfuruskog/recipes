@@ -11,9 +11,9 @@ export class RecipesService {
     @InjectModel('Recipe') private readonly recipeModel: Model<Recipe>,
   ) {}
 
-  async create(createRecipeDto: CreateRecipeDto) {
+  async create(userId: string, createRecipeDto: CreateRecipeDto) {
     const createdRecipe = new this.recipeModel(createRecipeDto);
-
+    createdRecipe.user_id = userId;
     await createdRecipe.save();
 
     return await this.recipeModel
@@ -22,9 +22,11 @@ export class RecipesService {
       .exec();
   }
 
-  async findAll(): Promise<Recipe[]> {
+  async findAll(userId: string): Promise<Recipe[]> {
     return await this.recipeModel
       .find()
+      .where('user_id')
+      .equals(userId)
       .populate('type')
       .exec();
   }

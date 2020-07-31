@@ -1,3 +1,5 @@
+export const SET_RECIPES_LOADING = 'SET_RECIPES_LOADING';
+export type SET_RECIPES_LOADING = typeof SET_RECIPES_LOADING;
 export const SET_RECIPES = 'SET_RECIPES';
 export type SET_RECIPES = typeof SET_RECIPES;
 export const ADD_RECIPE = 'ADD_RECIPE';

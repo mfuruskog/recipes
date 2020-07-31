@@ -10,6 +10,7 @@ import { MAX_RATING } from '../constants';
 import { Recipe } from '../types';
 import { RecipeContext } from '../contexts/recipe-context';
 import Emoji from '../components/Emoji';
+import Button from '../components/Button';
 
 const Form = tw.form`flex flex-col w-full`;
 const Label = tw.label`flex flex-wrap mb-4`;
@@ -40,7 +41,6 @@ const TypeLabel = styled.label<TypeProps>`
 `;
 const TypeInput = tw.input`absolute h-0 w-0 cursor-pointer`;
 const DescriptionInput = tw.textarea`w-full resize-none h-32 p-1`;
-const Submit = tw.button`bg-red-300 p-1 rounded-md font-bold`;
 const ValidationMessage = tw.span`text-sm font-light text-red-600`;
 
 export type RecipeFormData = {
@@ -153,7 +153,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
           ref={register()}
         ></DescriptionInput>
       </Label>
-      <Submit type="submit">Spara</Submit>
+      <Button type="submit">Spara</Button>
     </Form>
   );
 };

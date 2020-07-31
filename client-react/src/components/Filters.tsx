@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 import { RecipeContext } from '../contexts/recipe-context';
 import { setFilter } from '../actions';
 
-const FiltersContainer = tw.div`mb-4 px-4`;
+const FiltersContainer = tw.div`w-full mb-4 px-4`;
 const TypeFilter = tw.select`p-2`;
 const Type = tw.option``;
 
