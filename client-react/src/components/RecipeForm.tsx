@@ -11,6 +11,7 @@ import { Recipe } from '../types';
 import { RecipeContext } from '../contexts/recipe-context';
 import Emoji from '../components/Emoji';
 import Button from '../components/Button';
+import Loader from '../components/Loader';
 
 const Form = tw.form`flex flex-col w-full`;
 const Label = tw.label`flex flex-wrap mb-4`;
@@ -54,9 +55,14 @@ export type RecipeFormData = {
 interface RecipeFormProps {
   recipe?: Recipe;
   callback: Function;
+  loading?: boolean;
 }
 
-const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
+const RecipeForm: React.FC<RecipeFormProps> = ({
+  recipe,
+  callback,
+  loading = false,
+}) => {
   const { handleSubmit, register, errors, watch } = useForm<RecipeFormData>({
     defaultValues: {
       title: recipe?.title,
@@ -67,8 +73,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
     },
   });
   const { state } = useContext(RecipeContext);
-  const onSubmit = (values: RecipeFormData) => {
-    callback(values, recipe?._id);
+  const onSubmit = async (values: RecipeFormData) => {
+    await callback(values, recipe?._id);
   };
 
   const watchRating = watch('rating');
@@ -153,7 +159,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
           ref={register()}
         ></DescriptionInput>
       </Label>
-      <Button type="submit">Spara</Button>
+      <Button disabled={loading} type="submit">
+        {!loading ? 'Spara' : <Loader size={24} />}
+      </Button>
     </Form>
   );
 };

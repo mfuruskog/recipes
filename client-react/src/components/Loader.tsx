@@ -1,10 +1,15 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
+import React from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-const Loader = () => {
-  return <ClipLoader color={'#FC8181'} size={32} />;
+type LoaderProps = {
+  size?: number;
+};
+
+const Loader: React.FC<LoaderProps> = ({ size = 32 }) => {
+  return <ClipLoader color={'#FC8181'} size={size} />;
 };
 
 export default Loader;

@@ -2,6 +2,7 @@
  * The full tailwind config file, use this to change or add/remove base styles
  * e.g. tweak colors or add colors in-between existing ones
  */
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   purge: [],
@@ -740,5 +741,13 @@ module.exports = {
     transitionDelay: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant, e }) {
+      addVariant('disabled', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${e(`disabled${separator}${className}`)}:disabled`;
+        });
+      });
+    }),
+  ],
 };

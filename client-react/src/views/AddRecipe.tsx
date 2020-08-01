@@ -2,7 +2,7 @@
 
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +24,7 @@ const AddRecipe: React.FC = () => {
   const history = useHistory();
   const { dispatch } = useContext(RecipeContext);
   const { getAccessTokenSilently } = useAuth0();
+  const [formSubmitting, setFormSubmitting] = useState(false);
 
   return (
     <Container>
@@ -36,6 +37,7 @@ const AddRecipe: React.FC = () => {
       <Main>
         <RecipeForm
           callback={(values: RecipeFormData) => {
+            setFormSubmitting(true);
             const post = async () => {
               try {
                 const accessToken = await getAccessTokenSilently({
@@ -47,6 +49,7 @@ const AddRecipe: React.FC = () => {
                   })
                   .then((response) => {
                     dispatch(addRecipe(response.data));
+                    setFormSubmitting(false);
                     history.push('/');
                   });
               } catch (e) {
@@ -55,6 +58,7 @@ const AddRecipe: React.FC = () => {
             };
             post();
           }}
+          loading={formSubmitting}
         ></RecipeForm>
       </Main>
     </Container>
