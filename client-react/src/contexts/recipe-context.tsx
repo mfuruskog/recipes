@@ -4,6 +4,7 @@ import reducer, { initialState, StateType } from '../reducers';
 import {
   setRecipesLoading,
   setRecipes,
+  setFiltersLoading,
   setRecipeTypes,
   ActionType,
 } from '../actions';
@@ -27,6 +28,7 @@ export const RecipeProvider = ({ children }: Props) => {
     if (isAuthenticated) {
       const getData = async () => {
         dispatch(setRecipesLoading());
+        dispatch(setFiltersLoading());
         try {
           const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH_AUDIENCE,

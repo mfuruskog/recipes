@@ -130,7 +130,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       <RadioGroup>
         Typ
         <Type>
-          {state.recipeTypes.data.map((r, i) => (
+          {state.filters.recipeTypes.map((r, i) => (
             <TypeLabel key={i} selected={watchType === r._id}>
               <TypeInput
                 type="radio"

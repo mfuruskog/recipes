@@ -16,5 +16,5 @@ export interface RecipeType {
 }
 
 export interface RecipeFilter {
-  type?: string;
+  selectedType?: string;
 }

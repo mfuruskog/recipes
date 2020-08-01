@@ -27,9 +27,9 @@ const Home: React.FC = () => {
   const filterData = () => {
     let filteredData = state.recipes.data;
 
-    if (state.filters.type)
+    if (state.filters.selectedType)
       filteredData = filteredData.filter(
-        (recipe) => recipe.type.key === state.filters.type
+        (recipe) => recipe.type.key === state.filters.selectedType
       );
     return filteredData;
   };

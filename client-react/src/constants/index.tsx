@@ -9,6 +9,8 @@ export type UPDATE_RECIPE = typeof UPDATE_RECIPE;
 export const DELETE_RECIPE = 'DELETE_RECIPE';
 export type DELETE_RECIPE = typeof DELETE_RECIPE;
 
+export const SET_FILTERS_LOADING = 'SET_FILTERS_LOADING';
+export type SET_FILTERS_LOADING = typeof SET_FILTERS_LOADING;
 export const SET_FILTER = 'SET_FILTER';
 export type SET_FILTER = typeof SET_FILTER;
 

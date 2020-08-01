@@ -8,6 +8,7 @@ import {
   DELETE_RECIPE,
   SET_RECIPE_TYPES,
   SET_FILTER,
+  SET_FILTERS_LOADING,
 } from '../constants';
 import { ActionType } from '../actions';
 
@@ -16,11 +17,10 @@ export const initialState = {
     loading: false,
     data: [] as Recipe[],
   },
-  recipeTypes: {
-    data: [] as RecipeType[],
-  },
   filters: {
-    type: '',
+    loading: false,
+    recipeTypes: [] as RecipeType[],
+    selectedType: '',
   },
 };
 export type StateType = typeof initialState;
@@ -74,11 +74,18 @@ export default function reducer(
           loading: false,
         },
       };
+    case SET_FILTERS_LOADING:
+      return {
+        ...state,
+        filters: { ...state.filters, loading: true },
+      };
     case SET_RECIPE_TYPES:
       return {
         ...state,
-        recipeTypes: {
-          data: action.payload,
+        filters: {
+          ...state.filters,
+          recipeTypes: action.payload,
+          loading: false,
         },
       };
     case SET_FILTER:

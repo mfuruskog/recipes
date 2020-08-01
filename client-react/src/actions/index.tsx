@@ -6,6 +6,7 @@ import {
   DELETE_RECIPE,
   SET_RECIPE_TYPES,
   SET_FILTER,
+  SET_FILTERS_LOADING,
 } from '../constants';
 import { Recipe, RecipeType, RecipeFilter } from '../types';
 
@@ -47,6 +48,13 @@ export function setRecipeTypes(recipeTypes: RecipeType[]) {
   return {
     type: SET_RECIPE_TYPES,
     payload: recipeTypes,
+  };
+}
+
+export function setFiltersLoading() {
+  return {
+    type: SET_FILTERS_LOADING,
+    payload: {},
   };
 }
 
