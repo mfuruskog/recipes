@@ -48,7 +48,10 @@ export class RecipesService {
     }
     await recipe.save();
 
-    return recipe;
+    return await this.recipeModel
+      .findById(recipe._id)
+      .populate('type')
+      .exec();
   }
 
   async delete(id: string): Promise<Recipe> {
