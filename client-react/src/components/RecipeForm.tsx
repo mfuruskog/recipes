@@ -2,7 +2,7 @@
 
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
@@ -58,11 +58,8 @@ interface RecipeFormProps {
   loading?: boolean;
 }
 
-const RecipeForm: React.FC<RecipeFormProps> = ({
-  recipe,
-  callback,
-  loading = false,
-}) => {
+const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
+  const [loading, setLoading] = useState(false);
   const { handleSubmit, register, errors, watch } = useForm<RecipeFormData>({
     defaultValues: {
       title: recipe?.title,
@@ -73,8 +70,11 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     },
   });
   const { state } = useContext(RecipeContext);
+
   const onSubmit = async (values: RecipeFormData) => {
+    setLoading(true);
     await callback(values, recipe?._id);
+    setLoading(false);
   };
 
   const watchRating = watch('rating');

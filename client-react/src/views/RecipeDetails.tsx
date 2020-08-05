@@ -49,16 +49,32 @@ const RecipeDetails: React.FC = () => {
     setRecipe(state.recipes.data.find((r) => r._id === id) as Recipe);
   }, [state, id]);
 
+  const put = async (values: RecipeFormData, _id: string) => {
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH_AUDIENCE,
+      });
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_API_URL}/recipes/${_id}`,
+        values,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      dispatch(updateRecipe(data));
+      setIsEditing(false);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   const HeaderContent = () => {
     if (isEditing)
       return (
         <React.Fragment>
           <button tw="flex" onClick={() => setIsEditing(false)}>
             Avbryt
-          </button>
-
-          <button tw="flex" onClick={() => setIsEditing(false)}>
-            Spara
           </button>
         </React.Fragment>
       );
@@ -126,37 +142,7 @@ const RecipeDetails: React.FC = () => {
           </RecipeLink>
         </React.Fragment>
       );
-    return (
-      <RecipeForm
-        recipe={recipe}
-        callback={(values: RecipeFormData, _id: string) => {
-          const put = async () => {
-            try {
-              const accessToken = await getAccessTokenSilently({
-                audience: process.env.REACT_APP_AUTH_AUDIENCE,
-              });
-              axios
-                .put(
-                  `${process.env.REACT_APP_API_URL}/recipes/${_id}`,
-                  values,
-                  {
-                    headers: {
-                      authorization: `Bearer ${accessToken}`,
-                    },
-                  }
-                )
-                .then((response) => {
-                  dispatch(updateRecipe(response.data));
-                  setIsEditing(false);
-                });
-            } catch (e) {
-              console.log(e.message);
-            }
-          };
-          put();
-        }}
-      ></RecipeForm>
-    );
+    return <RecipeForm recipe={recipe} callback={put}></RecipeForm>;
   };
 
   return (

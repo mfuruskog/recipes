@@ -20,11 +20,30 @@ const Back = tw.button`flex`;
 const BackIcon = styled(FontAwesomeIcon)`
   ${tw`text-2xl mr-1`}
 `;
+
 const AddRecipe: React.FC = () => {
   const history = useHistory();
   const { dispatch } = useContext(RecipeContext);
   const { getAccessTokenSilently } = useAuth0();
-  const [formSubmitting, setFormSubmitting] = useState(false);
+
+  const post = async (values: RecipeFormData) => {
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH_AUDIENCE,
+      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/recipes`,
+        values,
+        {
+          headers: { authorization: `Bearer ${accessToken}` },
+        }
+      );
+      dispatch(addRecipe(data));
+      history.push('/');
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   return (
     <Container>
@@ -35,31 +54,7 @@ const AddRecipe: React.FC = () => {
         </Back>
       </Header>
       <Main>
-        <RecipeForm
-          callback={(values: RecipeFormData) => {
-            setFormSubmitting(true);
-            const post = async () => {
-              try {
-                const accessToken = await getAccessTokenSilently({
-                  audience: process.env.REACT_APP_AUTH_AUDIENCE,
-                });
-                axios
-                  .post(`${process.env.REACT_APP_API_URL}/recipes`, values, {
-                    headers: { authorization: `Bearer ${accessToken}` },
-                  })
-                  .then((response) => {
-                    dispatch(addRecipe(response.data));
-                    setFormSubmitting(false);
-                    history.push('/');
-                  });
-              } catch (e) {
-                console.log(e.message);
-              }
-            };
-            post();
-          }}
-          loading={formSubmitting}
-        ></RecipeForm>
+        <RecipeForm callback={post}></RecipeForm>
       </Main>
     </Container>
   );
