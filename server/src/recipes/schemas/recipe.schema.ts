@@ -13,7 +13,6 @@ export const RecipeSchema = new mongoose.Schema({
   },
   url: {
     type: String,
-    required: true,
   },
   rating: {
     type: Number,

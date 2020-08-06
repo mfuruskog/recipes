@@ -64,7 +64,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
     defaultValues: {
       title: recipe?.title,
       url: recipe?.url,
-      rating: recipe?.rating.toString(),
+      rating: recipe?.rating?.toString(),
       type: recipe?.type._id,
       description: recipe?.description,
     },
