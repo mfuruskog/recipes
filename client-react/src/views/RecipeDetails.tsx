@@ -21,6 +21,10 @@ import Emoji from '../components/Emoji';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
 import { RecipeContext } from '../contexts/recipe-context';
 import { updateRecipe, deleteRecipe } from '../actions';
+import { Dialog } from '@reach/dialog';
+import '@reach/dialog/styles.css';
+import Button from '../components/Button';
+import Loader from '../components/Loader';
 
 const Container = tw.div`w-full md:w-1/2`;
 const Header = tw.header`flex justify-between px-4 mt-4`;
@@ -36,6 +40,11 @@ const BackIcon = styled(FontAwesomeIcon)`
   ${tw`text-2xl mr-1`}
 `;
 const DeleteButton = tw.button`mr-4`;
+const DeleteModal = styled(Dialog)`
+  ${tw`w-5/6 bg-red-100 flex flex-wrap justify-between`}
+`;
+const DeleteModalHeading = tw.h2`w-full font-semibold text-center text-xl mb-4`;
+const DeleteModalText = tw.p`w-full mb-8`;
 
 const RecipeDetails: React.FC = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -44,6 +53,11 @@ const RecipeDetails: React.FC = () => {
   const { state, dispatch } = useContext(RecipeContext);
   const [recipe, setRecipe] = useState<Recipe>();
   const [isEditing, setIsEditing] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const openDeleteModal = () => setShowDeleteModal(true);
+  const closeDeleteModal = () => setShowDeleteModal(false);
 
   useEffect(() => {
     setRecipe(state.recipes.data.find((r) => r._id === id) as Recipe);
@@ -69,6 +83,29 @@ const RecipeDetails: React.FC = () => {
       console.log(e.message);
     }
   };
+
+  const remove = async () => {
+    setDeleting(true);
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH_AUDIENCE,
+      });
+      const { data } = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/recipes/${id}`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      dispatch(deleteRecipe(data._id));
+      history.push('/');
+    } catch (e) {
+      setDeleting(false);
+      console.log(e.message);
+    }
+  };
+
   const HeaderContent = () => {
     if (isEditing)
       return (
@@ -87,33 +124,7 @@ const RecipeDetails: React.FC = () => {
         <Menu>
           {recipe ? (
             <React.Fragment>
-              <DeleteButton
-                onClick={() => {
-                  const deleteCall = async () => {
-                    try {
-                      const accessToken = await getAccessTokenSilently({
-                        audience: process.env.REACT_APP_AUTH_AUDIENCE,
-                      });
-                      axios
-                        .delete(
-                          `${process.env.REACT_APP_API_URL}/recipes/${recipe._id}`,
-                          {
-                            headers: {
-                              authorization: `Bearer ${accessToken}`,
-                            },
-                          }
-                        )
-                        .then((response) => {
-                          dispatch(deleteRecipe(response.data._id));
-                          history.push('/');
-                        });
-                    } catch (e) {
-                      console.log(e.message);
-                    }
-                  };
-                  deleteCall();
-                }}
-              >
+              <DeleteButton onClick={openDeleteModal}>
                 <FontAwesomeIcon icon={faTrash} />
               </DeleteButton>
               <button onClick={() => setIsEditing(true)}>
@@ -153,6 +164,22 @@ const RecipeDetails: React.FC = () => {
       <Main>
         <MainContent></MainContent>
       </Main>
+      <DeleteModal isOpen={showDeleteModal} onDismiss={openDeleteModal}>
+        <DeleteModalHeading>Ta bort recept</DeleteModalHeading>
+        <DeleteModalText>
+          Är du helt säker? Detta går inte att ångra.
+        </DeleteModalText>
+        <Button
+          disabled={deleting}
+          tw="bg-green-500 w-1/3"
+          onClick={closeDeleteModal}
+        >
+          Avbryt
+        </Button>
+        <Button disabled={deleting} tw="bg-red-600 w-1/3" onClick={remove}>
+          {!deleting ? 'Ja' : <Loader size={24} />}
+        </Button>
+      </DeleteModal>
     </Container>
   );
 };

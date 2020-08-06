@@ -40,7 +40,7 @@ const Home: React.FC = () => {
       {isAuthenticated ? (
         <React.Fragment>
           <div tw="w-full flex justify-center">
-            <Button onClick={() => history.push('/add')}>
+            <Button tw="mb-4" onClick={() => history.push('/add')}>
               Lägg till recept
             </Button>
           </div>
