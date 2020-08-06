@@ -98,13 +98,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
 
       <Label>
         Länk till recept{' '}
-        <TextInput
-          type="text"
-          name="url"
-          ref={register({
-            required: 'Obligatoriskt',
-          })}
-        ></TextInput>
+        <TextInput type="text" name="url" ref={register}></TextInput>
         {errors.url && (
           <ValidationMessage>{errors.url.message}</ValidationMessage>
         )}
@@ -118,7 +112,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
               <RatingInput
                 type="radio"
                 name="rating"
-                ref={register({ required: 'Obligatoriskt' })}
+                ref={register}
                 value={MAX_RATING - i}
               />
               <Star
