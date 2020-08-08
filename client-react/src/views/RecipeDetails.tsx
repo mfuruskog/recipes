@@ -31,7 +31,8 @@ const Header = tw.header`flex justify-between px-4 mt-4`;
 
 const Main = tw.main`flex flex-wrap justify-between px-4 mt-4`;
 const RecipeTitle = tw.h1`w-full text-center text-2xl font-semibold border-b border-gray-300 mb-4`;
-const RecipeType = tw.span``;
+const RecipeTypes = tw.ul`flex`;
+const RecipeType = tw.li`mr-1`;
 const RecipeDescription = tw.div`w-full my-3`;
 const RecipeLink = tw.a`text-green-600`;
 const Menu = tw.span``;
@@ -144,9 +145,13 @@ const RecipeDetails: React.FC = () => {
         <React.Fragment>
           <RecipeTitle>{recipe.title}</RecipeTitle>
           <Rating rating={recipe.rating}></Rating>
-          <RecipeType>
-            <Emoji symbol={recipe.type.emoji} label={recipe.type.name}></Emoji>
-          </RecipeType>
+          <RecipeTypes>
+            {recipe.types.map((t, i) => (
+              <RecipeType key={i}>
+                <Emoji symbol={t.emoji} label={t.name}></Emoji>
+              </RecipeType>
+            ))}
+          </RecipeTypes>
           <RecipeDescription>{recipe.description}</RecipeDescription>
           <RecipeLink href={recipe.url}>
             Gå till recept <FontAwesomeIcon icon={faExternalLinkAlt} />

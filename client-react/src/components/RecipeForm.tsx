@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
 import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, FieldError } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { MAX_RATING } from '../constants';
@@ -48,8 +48,8 @@ export type RecipeFormData = {
   title: string;
   url: string;
   rating: string;
-  type: string;
   description: string;
+  types: string[];
 };
 
 interface RecipeFormProps {
@@ -65,7 +65,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       title: recipe?.title,
       url: recipe?.url,
       rating: recipe?.rating?.toString(),
-      type: recipe?.type._id,
+      types: recipe ? recipe.types.map((t) => t._id) : [],
       description: recipe?.description,
     },
   });
@@ -74,11 +74,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
   const onSubmit = async (values: RecipeFormData) => {
     setLoading(true);
     await callback(values, recipe?._id);
-    setLoading(false);
   };
 
   const watchRating = watch('rating');
-  const watchType = watch('type');
+  const watchTypes = watch('types');
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Label>
@@ -130,20 +129,24 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       <RadioGroup>
         Typ
         <Type>
-          {state.filters.recipeTypes.map((r, i) => (
-            <TypeLabel key={i} selected={watchType === r._id}>
-              <TypeInput
-                type="radio"
-                name="type"
-                ref={register({ required: 'Obligatoriskt' })}
-                value={r._id}
-              />{' '}
-              <Emoji symbol={r.emoji} label={r.name} />
-            </TypeLabel>
-          ))}
+          {state.filters.recipeTypes.map((r, i) => {
+            return (
+              <TypeLabel key={i} selected={watchTypes.includes(r._id)}>
+                <TypeInput
+                  type="checkbox"
+                  name="types"
+                  ref={register({ required: 'Obligatoriskt' })}
+                  value={r._id}
+                />{' '}
+                <Emoji symbol={r.emoji} label={r.name} />
+              </TypeLabel>
+            );
+          })}
         </Type>
-        {errors.type && (
-          <ValidationMessage>{errors.type.message}</ValidationMessage>
+        {errors.types && (
+          <ValidationMessage>
+            {((errors.types as unknown) as FieldError)?.message}
+          </ValidationMessage>
         )}
       </RadioGroup>
       <Label>

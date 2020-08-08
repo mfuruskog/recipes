@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { jsx } from '@emotion/core';
-import tw, { styled } from 'twin.macro';
+import tw from 'twin.macro';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RecipeProvider } from './contexts/recipe-context';

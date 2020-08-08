@@ -28,8 +28,8 @@ const Home: React.FC = () => {
     let filteredData = state.recipes.data;
 
     if (state.filters.selectedType)
-      filteredData = filteredData.filter(
-        (recipe) => recipe.type.key === state.filters.selectedType
+      filteredData = filteredData.filter((recipe) =>
+        recipe.types.map((t) => t.key).includes(state.filters.selectedType)
       );
     return filteredData;
   };

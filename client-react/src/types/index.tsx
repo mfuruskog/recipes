@@ -4,7 +4,7 @@ export interface Recipe {
   description: string;
   url: string;
   rating: number;
-  type: RecipeType;
+  types: RecipeType[];
   create_date: Date;
 }
 

@@ -18,7 +18,7 @@ export class RecipesService {
 
     return await this.recipeModel
       .findById(createdRecipe._id)
-      .populate('type')
+      .populate('types')
       .exec();
   }
 
@@ -27,7 +27,7 @@ export class RecipesService {
       .find()
       .where('user_id')
       .equals(userId)
-      .populate('type')
+      .populate('types')
       .exec();
   }
 
@@ -43,14 +43,14 @@ export class RecipesService {
       recipe.url = updateRecipeDto.url;
       recipe.description = updateRecipeDto.description;
       recipe.rating = updateRecipeDto.rating;
-      recipe.type = updateRecipeDto.type;
+      recipe.types = updateRecipeDto.types;
       recipe.update_date = new Date().toISOString();
     }
     await recipe.save();
 
     return await this.recipeModel
       .findById(recipe._id)
-      .populate('type')
+      .populate('types')
       .exec();
   }
 

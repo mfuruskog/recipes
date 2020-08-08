@@ -19,11 +19,12 @@ export const RecipeSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
-  type: {
-    type: mongoose.ObjectId,
-    required: true,
-    ref: 'RecipeType',
-  },
+  types: [
+    {
+      type: mongoose.ObjectId,
+      ref: 'RecipeType',
+    },
+  ],
   create_date: {
     type: Date,
     default: Date.now,
