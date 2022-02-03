@@ -5,6 +5,7 @@ export interface Recipe {
   rating: number;
   types: RecipeType[];
   update_date: Date;
+  user_id: string;
 }
 
 export interface RecipeType {

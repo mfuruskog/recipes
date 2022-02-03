@@ -25,6 +25,7 @@ export class RecipesController {
     @Request() req,
     @Body() createRecipeDto: CreateRecipeDto,
   ): Promise<string> {
+    // @ts-ignore
     return this.recipesService.create(req.user.sub, createRecipeDto);
   }
 

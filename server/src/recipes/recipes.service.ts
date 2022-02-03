@@ -43,8 +43,9 @@ export class RecipesService {
       recipe.url = updateRecipeDto.url;
       recipe.description = updateRecipeDto.description;
       recipe.rating = updateRecipeDto.rating;
+      // @ts-ignore
       recipe.types = updateRecipeDto.types;
-      recipe.update_date = new Date().toISOString();
+      recipe.update_date = new Date();
     }
     await recipe.save();
 

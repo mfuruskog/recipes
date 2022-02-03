@@ -1,6 +1,7 @@
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-export const RecipeSchema = new mongoose.Schema({
+export const RecipeSchema = new Schema({
   user_id: {
     type: String,
   },
@@ -21,7 +22,7 @@ export const RecipeSchema = new mongoose.Schema({
   },
   types: [
     {
-      type: mongoose.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'RecipeType',
     },
   ],
