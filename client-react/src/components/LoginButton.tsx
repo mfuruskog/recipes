@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import tw from 'twin.macro';
 import { useAuth0 } from '@auth0/auth0-react';
 

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import tw from 'twin.macro';
 
 const HeaderContainer = tw.div`flex flex-col justify-between items-center p-2 bg-red-100`;

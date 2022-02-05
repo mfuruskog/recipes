@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import tw, { styled } from 'twin.macro';
 import React, { useContext } from 'react';
 import axios from 'axios';
