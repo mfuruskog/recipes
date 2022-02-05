@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import Rating from '../components/Rating';
@@ -17,9 +17,9 @@ const Types = tw.ul`flex`;
 const Type = tw.li`mr-1`;
 
 const RecipeItem: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
-    <Container onClick={() => history.push(`recipe/${recipe._id}`)}>
+    <Container onClick={() => navigate(`recipe/${recipe._id}`)}>
       <Created>{format(new Date(recipe.create_date), 'yyyy-MM-dd')}</Created>
       <Title>{recipe.title}</Title>
       <Types>

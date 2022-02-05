@@ -44,7 +44,9 @@ export const RecipeProvider = ({ children }: Props) => {
             .get(`${process.env.REACT_APP_API_URL}/recipetypes`)
             .then((response) => dispatch(setRecipeTypes(response.data)));
         } catch (e) {
-          console.log(e.message);
+          if (e instanceof Error) {
+            console.log(e.message)
+          }
         }
       };
       getData();

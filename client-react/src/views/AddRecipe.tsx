@@ -8,7 +8,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RecipeContext } from '../contexts/recipe-context';
 import { addRecipe } from '../actions';
 
@@ -22,7 +22,7 @@ const BackIcon = styled(FontAwesomeIcon)`
 `;
 
 const AddRecipe: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { dispatch } = useContext(RecipeContext);
   const { getAccessTokenSilently } = useAuth0();
 
@@ -39,16 +39,18 @@ const AddRecipe: React.FC = () => {
         }
       );
       dispatch(addRecipe(data));
-      history.push('/');
+      navigate('/');
     } catch (e) {
-      console.log(e.message);
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
     }
   };
 
   return (
     <Container>
       <Header>
-        <Back onClick={() => history.push('/')}>
+        <Back onClick={() => navigate('/')}>
           <BackIcon icon={faAngleLeft} />
           Bakåt
         </Back>

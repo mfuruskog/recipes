@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import tw, { styled } from 'twin.macro';
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -50,7 +50,7 @@ const DeleteModalText = tw.p`w-full mb-8`;
 const RecipeDetails: React.FC = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { state, dispatch } = useContext(RecipeContext);
   const [recipe, setRecipe] = useState<Recipe>();
   const [isEditing, setIsEditing] = useState(false);
@@ -81,7 +81,9 @@ const RecipeDetails: React.FC = () => {
       dispatch(updateRecipe(data));
       setIsEditing(false);
     } catch (e) {
-      console.log(e.message);
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
     }
   };
 
@@ -100,10 +102,12 @@ const RecipeDetails: React.FC = () => {
         }
       );
       dispatch(deleteRecipe(data._id));
-      history.push('/');
+      navigate('/');
     } catch (e) {
       setDeleting(false);
-      console.log(e.message);
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
     }
   };
 
@@ -118,7 +122,7 @@ const RecipeDetails: React.FC = () => {
       );
     return (
       <React.Fragment>
-        <Back onClick={() => history.push('/')}>
+        <Back onClick={() => navigate('/')}>
           <BackIcon icon={faAngleLeft} />
           Bakåt
         </Back>
