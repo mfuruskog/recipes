@@ -60,7 +60,7 @@ interface RecipeFormProps {
 
 const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
   const [loading, setLoading] = useState(false);
-  const { handleSubmit, register, errors, watch } = useForm<RecipeFormData>({
+  const { handleSubmit, register, watch, formState: { errors } } = useForm<RecipeFormData>({
     defaultValues: {
       title: recipe?.title,
       url: recipe?.url,
@@ -83,12 +83,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       <Label>
         Titel{' '}
         <TextInput
+          {...register("title", { required: "Obligatoriskt"})}
           type="text"
-          name="title"
           placeholder="T.ex. Pasta Carbonara"
-          ref={register({
-            required: 'Obligatoriskt',
-          })}
         ></TextInput>
         {errors.title && (
           <ValidationMessage>{errors.title.message}</ValidationMessage>
@@ -97,7 +94,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
 
       <Label>
         Länk till recept{' '}
-        <TextInput type="text" name="url" ref={register}></TextInput>
+        <TextInput {...register("url")} type="text"></TextInput>
         {errors.url && (
           <ValidationMessage>{errors.url.message}</ValidationMessage>
         )}
@@ -109,9 +106,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
           {[...Array(MAX_RATING)].map((e, i) => (
             <RatingLabel className={'star'} key={MAX_RATING - i}>
               <RatingInput
+                {...register("rating")}
                 type="radio"
-                name="rating"
-                ref={register}
                 value={MAX_RATING - i}
               />
               <Star
@@ -133,9 +129,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
             return (
               <TypeLabel key={i} selected={watchTypes.includes(r._id)}>
                 <TypeInput
+                  {...register("types", { required: "Obligatoriskt" })}
                   type="checkbox"
                   name="types"
-                  ref={register({ required: 'Obligatoriskt' })}
                   value={r._id}
                 />{' '}
                 <Emoji symbol={r.emoji} label={r.name} />
@@ -152,8 +148,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       <Label>
         Beskrivning eller kommentar
         <DescriptionInput
-          name="description"
-          ref={register()}
+          {...register("description")}
         ></DescriptionInput>
       </Label>
       <Button disabled={loading} type="submit">
