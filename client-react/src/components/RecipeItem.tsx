@@ -1,6 +1,5 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 
-import { jsx } from '@emotion/react';
 import tw from 'twin.macro';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

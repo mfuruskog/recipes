@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import 'tailwindcss/dist/base.min.css';
+import { GlobalStyles } from 'twin.macro'
 import { Auth0Provider } from '@auth0/auth0-react';
 
 ReactDOM.render(
@@ -14,6 +14,7 @@ ReactDOM.render(
       redirectUri={window.location.origin}
       audience={process.env.REACT_APP_AUTH_AUDIENCE}
     >
+      <GlobalStyles />
       <App />
     </Auth0Provider>
   </React.StrictMode>,

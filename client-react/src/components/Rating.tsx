@@ -1,6 +1,5 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 
-import { jsx } from '@emotion/react';
 import tw, { styled } from 'twin.macro';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -1,6 +1,5 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 
-import { jsx } from '@emotion/react';
 import tw, { styled } from 'twin.macro';
 import React, { useContext, useState } from 'react';
 import { useForm, FieldError } from 'react-hook-form';

@@ -1,6 +1,5 @@
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
 
-import { jsx } from '@emotion/react';
 import tw from 'twin.macro';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
