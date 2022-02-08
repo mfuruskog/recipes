@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { RecipesModule } from './recipes/recipes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthzModule } from './authz/authz.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AuthzModule } from './authz/authz.module';
       { useNewUrlParser: true },
     ),
     AuthzModule,
+    UserModule,
   ],
 })
 export class AppModule {}

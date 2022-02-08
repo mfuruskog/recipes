@@ -32,9 +32,16 @@ export class RecipesController {
   @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(@Request() req): Promise<Recipe[]> {
+    let shared_with: string | undefined =
+      req.user['https://receptladan/shared_with'];
+
+    if (shared_with !== undefined) {
+      return this.recipesService.findAllByUserIds([req.user.sub, shared_with]);
+    }
     return this.recipesService.findAll(req.user.sub);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Recipe> {
     return this.recipesService.findOne(id);

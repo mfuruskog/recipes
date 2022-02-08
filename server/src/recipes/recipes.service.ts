@@ -31,6 +31,15 @@ export class RecipesService {
       .exec();
   }
 
+  async findAllByUserIds(userIds: Array<string>): Promise<Recipe[]> {
+    return await this.recipeModel
+      .find()
+      .where('user_id')
+      .in(userIds)
+      .populate('types')
+      .exec();
+  }
+
   async findOne(id: string): Promise<Recipe> {
     return await this.recipeModel.findById(id).exec();
   }
@@ -49,10 +58,7 @@ export class RecipesService {
     }
     await recipe.save();
 
-    return await this.recipeModel
-      .findById(recipe._id)
-      .populate('types')
-      .exec();
+    return await this.recipeModel.findById(recipe._id).populate('types').exec();
   }
 
   async delete(id: string): Promise<Recipe> {
