@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateInviteDto } from './dto/create-invite.dto';
 import { Invite } from './interfaces/invite.interface';
+import { ManagementClient } from 'auth0';
 
 @Injectable()
 export class InviteService {
@@ -25,5 +26,25 @@ export class InviteService {
     } else {
       throw new NotFoundException();
     }
+  }
+
+  async accept(userId: string, id: string): Promise<void> {
+    var invite: Invite;
+
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      invite = await this.inviteModel.findById(id).exec();
+    } else {
+      throw new NotFoundException('Invite not found.');
+    }
+
+    //TODO put this somewhere else and add error handling
+    var client = new ManagementClient({
+      domain: process.env.AUTH0_DOMAIN,
+      clientId: process.env.AUTH0_CLIENTID,
+      clientSecret: process.env.AUTH0_CLIENTSECRET,
+      scope: 'read:users update:users',
+    });
+    client.updateAppMetadata({ id: invite.user_id }, { shared_with: userId });
+    client.updateAppMetadata({ id: userId }, { shared_with: invite.user_id });
   }
 }

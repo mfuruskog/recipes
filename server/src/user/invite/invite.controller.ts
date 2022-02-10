@@ -34,8 +34,7 @@ export class InviteController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post(':id/accept')
-  async accept(@Param('id') id: string): Promise<Invite> {
-    let invite = this.inviteService.findOne(id);
-    return invite;
+  async accept(@Request() req, @Param('id') id: string): Promise<void> {
+    this.inviteService.accept(req.user.sub, id);
   }
 }

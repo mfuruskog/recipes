@@ -7,10 +7,7 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     RecipesModule,
-    MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://localhost/recipes',
-      { useNewUrlParser: true },
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URI, { useNewUrlParser: true }),
     AuthzModule,
     UserModule,
   ],
