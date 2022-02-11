@@ -17,6 +17,20 @@ export class InviteController {
   constructor(private readonly inviteService: InviteService) {}
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('sent')
+  async getSent(@Request() req): Promise<Invite[]> {
+    return this.inviteService.findAllSent(req.user.sub);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('received')
+  async getReceived(@Request() req): Promise<Invite[]> {
+    return this.inviteService.findAllReceived(
+      req.user['https://receptladan/email'],
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(
     @Request() req,
@@ -34,7 +48,7 @@ export class InviteController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post(':id/accept')
-  async accept(@Request() req, @Param('id') id: string): Promise<void> {
-    this.inviteService.accept(req.user.sub, id);
+  async accept(@Request() req, @Param('id') id: string): Promise<Invite> {
+    return this.inviteService.accept(req.user.sub, id);
   }
 }

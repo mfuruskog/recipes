@@ -28,7 +28,15 @@ export class InviteService {
     }
   }
 
-  async accept(userId: string, id: string): Promise<void> {
+  async findAllSent(userId: string): Promise<Invite[]> {
+    return await this.inviteModel.find().where('user_id').equals(userId).exec();
+  }
+
+  async findAllReceived(email: string): Promise<Invite[]> {
+    return await this.inviteModel.find().where('receiver').equals(email).exec();
+  }
+
+  async accept(userId: string, id: string): Promise<Invite> {
     var invite: Invite;
 
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -46,5 +54,7 @@ export class InviteService {
     });
     client.updateAppMetadata({ id: invite.user_id }, { shared_with: userId });
     client.updateAppMetadata({ id: userId }, { shared_with: invite.user_id });
+
+    return invite;
   }
 }
