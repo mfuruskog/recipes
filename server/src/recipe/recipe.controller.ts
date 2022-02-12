@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
-import { RecipesService } from './recipes.service';
+import { RecipeService } from './recipe.service';
 import { Recipe } from './interfaces/recipe.interface';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('recipes')
-export class RecipesController {
-  constructor(private readonly recipesService: RecipesService) {}
+export class RecipeController {
+  constructor(private readonly recipesService: RecipeService) {}
 
   @UseGuards(AuthGuard('jwt'))
   @Post()

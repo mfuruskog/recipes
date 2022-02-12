@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { RecipesController } from './recipes.controller';
-import { RecipeTypesController } from './recipetypes.controller';
-import { RecipesService } from './recipes.service';
-import { RecipeTypesService } from './recipetypes.service';
+import { RecipeController } from './recipe.controller';
+import { RecipeTypeController } from './recipetype.controller';
+import { RecipeService } from './recipe.service';
+import { RecipeTypeService } from './recipetype.service';
 import { RecipeSchema } from './schemas/recipe.schema';
 import { RecipeTypeSchema } from './schemas/recipetype.schema';
 
@@ -14,7 +14,7 @@ import { RecipeTypeSchema } from './schemas/recipetype.schema';
       { name: 'RecipeType', schema: RecipeTypeSchema },
     ]),
   ],
-  controllers: [RecipesController, RecipeTypesController],
-  providers: [RecipesService, RecipeTypesService],
+  controllers: [RecipeController, RecipeTypeController],
+  providers: [RecipeService, RecipeTypeService],
 })
-export class RecipesModule {}
+export class RecipeModule {}

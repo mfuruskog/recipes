@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { InviteController } from './invite/invite.controller';
-import { InviteService } from './invite/invite.service';
+import { InviteController } from './invite.controller';
+import { InviteService } from './invite.service';
 import { InviteSchema } from './schemas/invite.schema';
 
 @Module({
@@ -11,4 +11,4 @@ import { InviteSchema } from './schemas/invite.schema';
   controllers: [InviteController],
   providers: [InviteService],
 })
-export class UserModule {}
+export class InviteModule {}

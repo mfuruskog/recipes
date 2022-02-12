@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
-import { RecipesModule } from './recipes/recipes.module';
+import { RecipeModule } from './recipe/recipe.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthzModule } from './authz/authz.module';
-import { UserModule } from './user/user.module';
+import { InviteModule } from './invite/invite.module';
 
 @Module({
   imports: [
-    RecipesModule,
+    RecipeModule,
     MongooseModule.forRoot(process.env.MONGODB_URI, { useNewUrlParser: true }),
     AuthzModule,
-    UserModule,
+    InviteModule,
   ],
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { RecipeType } from './interfaces/recipe.interface';
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
-export class RecipeTypesService {
+export class RecipeTypeService {
   constructor(
     @InjectModel('RecipeType')
     private readonly recipeTypeModel: Model<RecipeType>,

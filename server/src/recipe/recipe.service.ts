@@ -6,7 +6,7 @@ import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 
 @Injectable()
-export class RecipesService {
+export class RecipeService {
   constructor(
     @InjectModel('Recipe') private readonly recipeModel: Model<Recipe>,
   ) {}
