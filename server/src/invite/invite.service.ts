@@ -11,9 +11,14 @@ export class InviteService {
     @InjectModel('Invite') private readonly inviteModel: Model<Invite>,
   ) {}
 
-  async create(userId: string, createInviteDto: CreateInviteDto) {
+  async create(
+    userId: string,
+    email: string,
+    createInviteDto: CreateInviteDto,
+  ) {
     const createdInvite = new this.inviteModel(createInviteDto);
     createdInvite.user_id = userId;
+    createdInvite.sender = email;
     await createdInvite.save();
 
     return await this.inviteModel.findById(createdInvite._id).exec();

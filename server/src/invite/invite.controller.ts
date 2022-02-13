@@ -37,7 +37,11 @@ export class InviteController {
     @Body() createInviteDto: CreateInviteDto,
   ): Promise<string> {
     // @ts-ignore
-    return this.inviteService.create(req.user.sub, createInviteDto);
+    return this.inviteService.create(
+      req.user.sub,
+      req.user['https://receptladan/email'],
+      createInviteDto,
+    );
   }
 
   @UseGuards(AuthGuard('jwt'))
