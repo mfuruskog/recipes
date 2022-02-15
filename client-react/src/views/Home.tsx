@@ -3,7 +3,6 @@
 import tw from 'twin.macro';
 import React, { useContext } from 'react';
 
-import Header from '../components/Header';
 import Filters from '../components/Filters';
 import RecipeItem from '../components/RecipeItem';
 import LoginButton from '../components/LoginButton';
@@ -12,6 +11,7 @@ import { RecipeContext } from '../contexts/recipe-context';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
+import Header from '../components/Header';
 
 const Container = tw.div`w-full md:w-1/2`;
 const Main = tw.main`flex flex-wrap justify-center`;
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <Header></Header>
+      <Header />
       {isAuthenticated ? (
         <React.Fragment>
           <div tw="w-full flex justify-center">

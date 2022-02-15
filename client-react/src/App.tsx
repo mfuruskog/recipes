@@ -10,6 +10,7 @@ import AddRecipe from './views/AddRecipe';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ProtectedComponent } from './components/ProtectedComponent';
 import Loader from './components/Loader';
+import Settings from './views/Settings';
 
 const RouteContainer = tw.div`mt-10 flex justify-center`;
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/recipe/:id" element={<ProtectedComponent component={RecipeDetails} />} />
             <Route path="/add" element={<ProtectedComponent component={AddRecipe} />} />
+            <Route path="/settings" element={<ProtectedComponent component={Settings} />} />
           </Routes>
         </RouteContainer>
       </Router>
