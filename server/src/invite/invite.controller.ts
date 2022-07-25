@@ -55,4 +55,10 @@ export class InviteController {
   async accept(@Request() req, @Param('id') id: string): Promise<Invite> {
     return this.inviteService.accept(req.user.sub, id);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post(':id/reject')
+  async reject(@Request() req, @Param('id') id: string): Promise<Invite> {
+    return this.inviteService.reject(req.user.sub, id);
+  }
 }

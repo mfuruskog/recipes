@@ -18,7 +18,7 @@ import { Recipe } from '../types/index';
 import Rating from '../components/Rating';
 import Emoji from '../components/Emoji';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
-import { RecipeContext } from '../contexts/recipe-context';
+import { AppContext } from '../contexts/app-context';
 import { updateRecipe, deleteRecipe } from '../actions';
 import { Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
@@ -50,7 +50,7 @@ const RecipeDetails: React.FC = () => {
   const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(RecipeContext);
+  const { state, dispatch } = useContext(AppContext);
   const [recipe, setRecipe] = useState<Recipe>();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

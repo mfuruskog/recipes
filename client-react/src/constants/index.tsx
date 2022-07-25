@@ -17,4 +17,7 @@ export type SET_FILTER = typeof SET_FILTER;
 export const SET_RECIPE_TYPES = 'SET_RECIPE_TYPES';
 export type SET_RECIPE_TYPES = typeof SET_RECIPE_TYPES;
 
+export const SET_INVITES = 'SET_INVITES';
+export type SET_INVITES = typeof SET_INVITES;
+
 export const MAX_RATING: number = 5;

@@ -2,7 +2,7 @@
 
 import tw from 'twin.macro';
 import React, { useContext } from 'react';
-import { RecipeContext } from '../contexts/recipe-context';
+import { AppContext } from '../contexts/app-context';
 import { setFilter } from '../actions';
 import Loader from '../components/Loader';
 
@@ -11,7 +11,7 @@ const TypeFilter = tw.select`p-2`;
 const Type = tw.option``;
 
 const Filters = () => {
-  const { state, dispatch } = useContext(RecipeContext);
+  const { state, dispatch } = useContext(AppContext);
 
   const applyTypeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setFilter({ ...state.filters, selectedType: event.target.value }));

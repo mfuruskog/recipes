@@ -7,8 +7,9 @@ import {
   SET_RECIPE_TYPES,
   SET_FILTER,
   SET_FILTERS_LOADING,
+  SET_INVITES,
 } from '../constants';
-import { Recipe, RecipeType, RecipeFilter } from '../types';
+import { Recipe, RecipeType, RecipeFilter, Invite} from '../types';
 
 export function setRecipesLoading() {
   return {
@@ -63,6 +64,13 @@ export function setFilter(filter: RecipeFilter) {
     type: SET_FILTER,
     payload: filter,
   };
+}
+
+export function setInvites(invites: Invite[]) {
+  return {
+    type: SET_INVITES,
+    payload: invites
+  }
 }
 
 export type ActionType = { type: string; payload?: any };

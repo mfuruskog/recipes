@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import RecipeForm, { RecipeFormData } from '../components/RecipeForm';
 import { useNavigate } from 'react-router-dom';
-import { RecipeContext } from '../contexts/recipe-context';
+import { AppContext } from '../contexts/app-context';
 import { addRecipe } from '../actions';
 
 const Container = tw.div`w-full md:w-1/2`;
@@ -22,7 +22,7 @@ const BackIcon = styled(FontAwesomeIcon)`
 
 const AddRecipe: React.FC = () => {
   const navigate = useNavigate();
-  const { dispatch } = useContext(RecipeContext);
+  const { dispatch } = useContext(AppContext);
   const { getAccessTokenSilently } = useAuth0();
 
   const post = async (values: RecipeFormData) => {

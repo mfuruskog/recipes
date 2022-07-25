@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 import { MAX_RATING } from '../constants';
 import { Recipe } from '../types';
-import { RecipeContext } from '../contexts/recipe-context';
+import { AppContext } from '../contexts/app-context';
 import Emoji from '../components/Emoji';
 import Button from '../components/Button';
 import Loader from '../components/Loader';
@@ -68,7 +68,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ recipe, callback }) => {
       description: recipe?.description,
     },
   });
-  const { state } = useContext(RecipeContext);
+  const { state } = useContext(AppContext);
 
   const onSubmit = async (values: RecipeFormData) => {
     setLoading(true);

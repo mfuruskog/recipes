@@ -1,4 +1,4 @@
-import { Recipe, RecipeType } from '../types';
+import { Invite, Recipe, RecipeType } from '../types';
 
 import {
   SET_RECIPES_LOADING,
@@ -9,6 +9,7 @@ import {
   SET_RECIPE_TYPES,
   SET_FILTER,
   SET_FILTERS_LOADING,
+  SET_INVITES,
 } from '../constants';
 import { ActionType } from '../actions';
 
@@ -21,6 +22,10 @@ export const initialState = {
     loading: false,
     recipeTypes: [] as RecipeType[],
     selectedType: '',
+  },
+  invites: {
+    loading: false,
+    data: [] as Invite[],
   },
 };
 export type StateType = typeof initialState;
@@ -92,6 +97,14 @@ export default function reducer(
       return {
         ...state,
         filters: action.payload,
+      };
+    case SET_INVITES:
+      return {
+        ...state,
+        invites: {
+          data: action.payload,
+          loading: false,
+        },
       };
     default:
       return state;

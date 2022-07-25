@@ -3,7 +3,7 @@
 import tw from 'twin.macro';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { RecipeProvider } from './contexts/recipe-context';
+import { RecipeProvider } from './contexts/app-context';
 import Home from './views/Home';
 import RecipeDetails from './views/RecipeDetails';
 import AddRecipe from './views/AddRecipe';

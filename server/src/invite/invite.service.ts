@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateInviteDto } from './dto/create-invite.dto';
-import { Invite } from './interfaces/invite.interface';
+import { Invite, InviteStatus } from './interfaces/invite.interface';
 import { ManagementClient } from 'auth0';
 
 @Injectable()
@@ -42,13 +42,11 @@ export class InviteService {
   }
 
   async accept(userId: string, id: string): Promise<Invite> {
-    var invite: Invite;
-
-    if (id.match(/^[0-9a-fA-F]{24}$/)) {
-      invite = await this.inviteModel.findById(id).exec();
-    } else {
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       throw new NotFoundException('Invite not found.');
     }
+
+    var invite = await this.inviteModel.findById(id).exec();
 
     //TODO put this somewhere else and add error handling
     var client = new ManagementClient({
@@ -60,6 +58,19 @@ export class InviteService {
     client.updateAppMetadata({ id: invite.user_id }, { shared_with: userId });
     client.updateAppMetadata({ id: userId }, { shared_with: invite.user_id });
 
+    invite.status = InviteStatus.accepted;
+    await invite.save();
+    return invite;
+  }
+
+  async reject(userId: string, id: string): Promise<Invite> {
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new NotFoundException('Invite not found.');
+    }
+
+    var invite = await this.inviteModel.findById(id).exec();
+    invite.status = InviteStatus.rejected;
+    await invite.save();
     return invite;
   }
 }

@@ -13,7 +13,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 type Props = {
   children: React.ReactNode;
 };
-export const RecipeContext = React.createContext<{
+export const AppContext = React.createContext<{
   state: StateType;
   dispatch: React.Dispatch<ActionType>;
 }>({
@@ -33,6 +33,7 @@ export const RecipeProvider = ({ children }: Props) => {
           const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH_AUDIENCE,
           });
+          console.log(accessToken)
           axios
             .get(`${process.env.REACT_APP_API_URL}/recipes`, {
               headers: {
@@ -54,8 +55,8 @@ export const RecipeProvider = ({ children }: Props) => {
   }, [dispatch, getAccessTokenSilently, isAuthenticated]);
 
   return (
-    <RecipeContext.Provider value={{ state, dispatch }}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
-    </RecipeContext.Provider>
+    </AppContext.Provider>
   );
 };

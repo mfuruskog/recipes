@@ -18,3 +18,9 @@ export interface RecipeType {
 export interface RecipeFilter {
   selectedType?: string;
 }
+
+export interface Invite {
+  _id: string;
+  receiver: string;
+  sender: string;
+}
